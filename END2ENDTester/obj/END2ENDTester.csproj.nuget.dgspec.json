@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hultb\\repos\\test\\END2ENDTester\\END2ENDTester.csproj": {}
+    "C:\\Users\\hultb\\RiderProjects\\Testing\\END2ENDTester\\END2ENDTester.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hultb\\repos\\test\\END2ENDTester\\END2ENDTester.csproj": {
+    "C:\\Users\\hultb\\RiderProjects\\Testing\\END2ENDTester\\END2ENDTester.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hultb\\repos\\test\\END2ENDTester\\END2ENDTester.csproj",
+        "projectUniqueName": "C:\\Users\\hultb\\RiderProjects\\Testing\\END2ENDTester\\END2ENDTester.csproj",
         "projectName": "END2ENDTester",
-        "projectPath": "C:\\Users\\hultb\\repos\\test\\END2ENDTester\\END2ENDTester.csproj",
+        "projectPath": "C:\\Users\\hultb\\RiderProjects\\Testing\\END2ENDTester\\END2ENDTester.csproj",
         "packagesPath": "C:\\Users\\hultb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hultb\\repos\\test\\END2ENDTester\\obj\\",
+        "outputPath": "C:\\Users\\hultb\\RiderProjects\\Testing\\END2ENDTester\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,15 +22,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net9.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net9.0": {
+            "targetAlias": "net9.0",
             "projectReferences": {}
           }
         },
@@ -47,8 +47,8 @@
         "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -102,20 +102,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"

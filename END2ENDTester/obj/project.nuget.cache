@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "scmtTnuXFZ0=",
+  "dgSpecHash": "bBWBqi4NPog=",
   "success": true,
-  "projectFilePath": "C:\\Users\\hultb\\repos\\test\\END2ENDTester\\END2ENDTester.csproj",
+  "projectFilePath": "C:\\Users\\hultb\\RiderProjects\\Testing\\END2ENDTester\\END2ENDTester.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hultb\\.nuget\\packages\\bodi\\1.5.0\\bodi.1.5.0.nupkg.sha512",
     "C:\\Users\\hultb\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
@@ -114,10 +114,7 @@
     "C:\\Users\\hultb\\.nuget\\packages\\xunit.extensibility.core\\2.9.3\\xunit.extensibility.core.2.9.3.nupkg.sha512",
     "C:\\Users\\hultb\\.nuget\\packages\\xunit.extensibility.execution\\2.5.3\\xunit.extensibility.execution.2.5.3.nupkg.sha512",
     "C:\\Users\\hultb\\.nuget\\packages\\xunit.runner.visualstudio\\2.5.3\\xunit.runner.visualstudio.2.5.3.nupkg.sha512",
-    "C:\\Users\\hultb\\.nuget\\packages\\xunit.skippablefact\\1.4.13\\xunit.skippablefact.1.4.13.nupkg.sha512",
-    "C:\\Users\\hultb\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.13\\microsoft.netcore.app.ref.8.0.13.nupkg.sha512",
-    "C:\\Users\\hultb\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.13\\microsoft.windowsdesktop.app.ref.8.0.13.nupkg.sha512",
-    "C:\\Users\\hultb\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.13\\microsoft.aspnetcore.app.ref.8.0.13.nupkg.sha512"
+    "C:\\Users\\hultb\\.nuget\\packages\\xunit.skippablefact\\1.4.13\\xunit.skippablefact.1.4.13.nupkg.sha512"
   ],
   "logs": [
     {
@@ -127,7 +124,7 @@
       "message": "Detected package version outside of dependency constraint: xunit.core 2.5.3 requires xunit.extensibility.core (= 2.5.3) but version xunit.extensibility.core 2.9.3 was resolved.",
       "libraryId": "xunit.extensibility.core",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     },
     {
@@ -137,7 +134,7 @@
       "message": "Detected package version outside of dependency constraint: xunit.extensibility.execution 2.5.3 requires xunit.extensibility.core (= 2.5.3) but version xunit.extensibility.core 2.9.3 was resolved.",
       "libraryId": "xunit.extensibility.core",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     }
   ]

@@ -19,7 +19,7 @@ namespace END2ENDTester.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "4.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class RegisterUserFeature : object, Xunit.IClassFixture<RegisterUserFeature.FixtureData>, Xunit.IAsyncLifetime
+    public partial class UserFlowFeature : object, Xunit.IClassFixture<UserFlowFeature.FixtureData>, Xunit.IAsyncLifetime
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace END2ENDTester.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "Register.feature"
+#line 1 "UserFlowWTP.feature"
 #line hidden
         
-        public RegisterUserFeature(RegisterUserFeature.FixtureData fixtureData, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public UserFlowFeature(UserFlowFeature.FixtureData fixtureData, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
         }
@@ -39,7 +39,7 @@ namespace END2ENDTester.Features
         public static async System.Threading.Tasks.Task FeatureSetupAsync()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunnerForAssembly(null, TechTalk.SpecFlow.xUnit.SpecFlowPlugin.XUnitParallelWorkerTracker.Instance.GetWorkerId());
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Register user", "    Register a user at Shoptester", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "User flow", "    Testing user flow on WTP", ProgrammingLanguage.CSharp, featureTags);
             await testRunner.OnFeatureStartAsync(featureInfo);
         }
         
@@ -86,14 +86,14 @@ namespace END2ENDTester.Features
             await this.TestTearDownAsync();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Open register form")]
-        [Xunit.TraitAttribute("FeatureTitle", "Register user")]
-        [Xunit.TraitAttribute("Description", "Open register form")]
-        public async System.Threading.Tasks.Task OpenRegisterForm()
+        [Xunit.SkippableFactAttribute(DisplayName="Clicking the faq button")]
+        [Xunit.TraitAttribute("FeatureTitle", "User flow")]
+        [Xunit.TraitAttribute("Description", "Clicking the faq button")]
+        public async System.Threading.Tasks.Task ClickingTheFaqButton()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open register form", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking the faq button", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 4
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -105,16 +105,132 @@ namespace END2ENDTester.Features
             {
                 await this.ScenarioStartAsync();
 #line 5
-        await testRunner.GivenAsync("I am at the Shoptester page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        await testRunner.GivenAsync("I am at the WTP page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
-        await testRunner.AndAsync("I see the register button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        await testRunner.AndAsync("I see the faq button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 7
-        await testRunner.WhenAsync("I click on the register button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        await testRunner.WhenAsync("I click on the faq button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
-        await testRunner.ThenAsync("I should see the register form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        await testRunner.ThenAsync("I should see the FAQ page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Clicking Yes on the FAQ page")]
+        [Xunit.TraitAttribute("FeatureTitle", "User flow")]
+        [Xunit.TraitAttribute("Description", "Clicking Yes on the FAQ page")]
+        public async System.Threading.Tasks.Task ClickingYesOnTheFAQPage()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clicking Yes on the FAQ page", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 10
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 11
+        await testRunner.GivenAsync("I am at the FAQ page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 12
+        await testRunner.AndAsync("I see the yes button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 13
+        await testRunner.WhenAsync("I click on the yes button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 14
+        await testRunner.ThenAsync("I should see the form page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Filling out the form")]
+        [Xunit.TraitAttribute("FeatureTitle", "User flow")]
+        [Xunit.TraitAttribute("Description", "Filling out the form")]
+        public async System.Threading.Tasks.Task FillingOutTheForm()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filling out the form", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 16
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 17
+        await testRunner.GivenAsync("I am at the form page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 18
+        await testRunner.AndAsync("I see the field companyType", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 19
+        await testRunner.AndAsync("I see the field firstName", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 20
+        await testRunner.AndAsync("I see the field email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 21
+        await testRunner.AndAsync("I see the registrationNumber field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 22
+        await testRunner.AndAsync("I see the field issueType", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 23
+        await testRunner.AndAsync("I see the textarea message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 24
+        await testRunner.WhenAsync("I click on the field companyType", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 25
+        await testRunner.AndAsync("I select Fordonsservice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 26
+        await testRunner.AndAsync("I click on the field firstName", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 27
+        await testRunner.AndAsync("I enter the name John Doe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 28
+        await testRunner.AndAsync("I click on the field email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 29
+        await testRunner.AndAsync("I enter my email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 30
+        await testRunner.AndAsync("I enter my registration number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 31
+        await testRunner.AndAsync("I click on the field issueType", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 32
+        await testRunner.AndAsync("I select the issue type \"Övrigt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 33
+        await testRunner.AndAsync("I click on the textarea message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 34
+        await testRunner.AndAsync("I enter the message \"I have a question about my order.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 35
+        await testRunner.AndAsync("I click on the submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 36
+        await testRunner.ThenAsync("I should see the success message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -127,12 +243,12 @@ namespace END2ENDTester.Features
             
             async System.Threading.Tasks.Task Xunit.IAsyncLifetime.InitializeAsync()
             {
-                await RegisterUserFeature.FeatureSetupAsync();
+                await UserFlowFeature.FeatureSetupAsync();
             }
             
             async System.Threading.Tasks.Task Xunit.IAsyncLifetime.DisposeAsync()
             {
-                await RegisterUserFeature.FeatureTearDownAsync();
+                await UserFlowFeature.FeatureTearDownAsync();
             }
         }
     }
