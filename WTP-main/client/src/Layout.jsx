@@ -74,6 +74,7 @@ function Layout() {
                 </NavLink>
                 <NavLink 
                   to={"/faq"}
+                  id="faq-link"
                   className="hover:text-blue-300 transition-colors"
                   onClick={() => setMenuOpen(false)}
                 >
