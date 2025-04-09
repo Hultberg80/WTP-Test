@@ -82,116 +82,46 @@ public class UserFlow
         Assert.Null(element);
     }
     
+
     [GivenAttribute("I am at the form page")]
     public async Task GivenIAmAtTheFormPage()
     {
         await _page.GotoAsync("http://localhost:3001/dynamisk");
     }
 
-    [GivenAttribute("I see the field companyType")]
-    public async Task GivenISeeTheFieldCompanyType()
-    {
-        var element = await _page.QuerySelectorAsync("[name='companyType']");
-        Assert.NotNull(element);
-    }
-
-    [GivenAttribute("I see the field firstName")]
-    public async Task GivenISeeTheFieldFirstName()
-    {
-        var element = await _page.QuerySelectorAsync("[name='firstName']");
-        Assert.NotNull(element);
-    }
-
-    [GivenAttribute("I see the field email")]
-    public async Task GivenISeeTheFieldEmail()
-    {
-        var element = await _page.QuerySelectorAsync("[name='email']");
-        Assert.NotNull(element);
-    }
-    
-    [GivenAttribute("I see the registrationNumber field")]
-    public async Task GivenISeeTheRegistrationNumberField()
-    {
-        var element = await _page.QuerySelectorAsync("[name='registrationNumber']");
-        Assert.Null(element);
-    }
-    
-    [GivenAttribute("I see the field issueType")]
-    public async Task GivenISeeTheFieldIssueType()
-    {
-        var element = await _page.QuerySelectorAsync("[name='issueType']");
-        Assert.Null(element);
-    }
-
-    [GivenAttribute("I see the textarea message")]
-    public async Task GivenISeeTheTextareaMessage()
-    {
-        var element = await _page.QuerySelectorAsync("[name='message']");
-        Assert.NotNull(element);
-    }
-
-    [WhenAttribute("I click on the field companyType")]
-    public async Task WhenIClickOnTheFieldCompanyType()
-    {
-        await _page.ClickAsync("[name='companyType']");
-    }
-
-    [WhenAttribute("I select Fordonsservice")]
-    public async Task WhenISelectFordonsservice()
+    [WhenAttribute("I select the field companyType and enter {string}")]
+    public async Task WhenISelectTheFieldCompanyTypeAndEnter(string fordonsservice)
     {
         await _page.SelectOptionAsync("[name='companyType']", new SelectOptionValue() { Label = "Fordonsservice" });
+
     }
 
-    [WhenAttribute("I click on the field firstName")]
-    public async Task WhenIClickOnTheFieldFirstName()
-    {
-        await _page.QuerySelectorAsync("[name='firstName']");
-    }
-
-    [WhenAttribute("I enter the name John Doe")]
-    public async Task WhenIEnterTheNameJohnDoe()
+    [WhenAttribute("I select the field firstName and enter {string}")]
+    public async Task WhenISelectTheFieldFirstNameAndEnter(string john)
     {
         await _page.FillAsync("[name='firstName']", "John Doe");
     }
 
-    [WhenAttribute("I click on the field email")]
-    public async Task WhenIClickOnTheFieldEmail()
-    {
-        await _page.QuerySelectorAsync("[name='email']");
-    }
-
-    [WhenAttribute("I enter my email address")]
-    public async Task WhenIEnterMyEmailAddress()
+    [WhenAttribute("I select the field email and enter my email address")]
+    public async Task WhenISelectTheFieldEmailAndEnterMyEmailAddress()
     {
         await _page.FillAsync("[name='email']", "hultberg.80@gmail.com");
     }
-    
-    [WhenAttribute("I enter my registration number")]
-    public async Task WhenIEnterMyRegistrationNumber()
+
+    [WhenAttribute("I select the registration number field and enter {string}")]
+    public async Task WhenISelectTheRegistrationNumberFieldAndEnter(string p0)
     {
         await _page.FillAsync("[name='registrationNumber']", "ABC123");
     }
-    
-    [WhenAttribute("I click on the field issueType")]
-    public async Task WhenIClickOnTheFieldIssueType()
-    {
-        await _page.ClickAsync("[name='issueType']");
-    }
-    
-    [WhenAttribute("I select the issue type {string}")]
-    public async Task WhenISelectTheIssueType(string Övrigt)
+
+    [WhenAttribute("I see the field issueType and select the issue type {string}")]
+    public async Task WhenISeeTheFieldIssueTypeAndSelectTheIssueType(string Övrigt)
     {
         await _page.SelectOptionAsync("[name='issueType']", new SelectOptionValue() { Label = Övrigt });
     }
 
-    [WhenAttribute("I click on the textarea message")]
-    public async Task WhenIClickOnTheTextareaMessage()
-    {
-        await _page.ClickAsync("[name='message']");
-    }
-
-    [WhenAttribute("I enter the message {string}")]
-    public async Task WhenIEnterTheMessage(string p0)
+    [WhenAttribute("I enter the message {string} in the message field")]
+    public async Task WhenIEnterTheMessageInTheMessageField(string p0)
     {
         await _page.FillAsync("[name='message']", "Hej, jag har en fråga om min beställning.");
     }
@@ -208,5 +138,4 @@ public class UserFlow
         var element = await _page.QuerySelectorAsync("[text='Formulär skickat! Kolla din e-post för chattlänken.']");
         Assert.Null(element);
     }
-    
 }

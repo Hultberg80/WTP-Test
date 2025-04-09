@@ -26,4 +26,13 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Features\UserFlow\UserFlowWTP.feature.cs">
+      <DependentUpon>UserFlowWTP.feature</DependentUpon>
+      <AutoGen>true</AutoGen>
+      <DesignTime>true</DesignTime>
+      <Visible>true</Visible>
+    </Compile>
+  </ItemGroup>
+
 </Project>
