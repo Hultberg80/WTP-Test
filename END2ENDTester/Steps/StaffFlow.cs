@@ -88,7 +88,32 @@ public class StaffFlow
         await _page.QuerySelectorAsync("a[href='/chat/80755554-44e8-4fff-b18a-a46ef6efdeda']:has-text('Öppna chatt')");
     }
 
-   
+
+    [GivenAttribute("I click on a ticket on öppna chatt")]
+    public async Task GivenIClickOnATicketOnOppnaChatt()
+    {
+        await _page.GotoAsync("http://localhost:3002/staff/dashboard");
+        await _loginHelper.LoginFiller("zunken123", "abc111");
+        await _page.ClickAsync("div.ticket-task-token a");
+    }
+
+    [WhenAttribute("I write a response in the chat")]
+    public async Task WhenIWriteAResponseInTheChat()
+    {
+        await _page.FillAsync("[class='chat-modal__input-field']", "Vad kan jag hjälpa dig med?");
+    }
+
+    [WhenAttribute("I click on the send button")]
+    public async Task WhenIClickOnTheSendButton()
+    {
+        await _page.ClickAsync("[class='chat-modal__send-button']");
+    }
+
+    [ThenAttribute("I should see my response in the chat")]
+    public async Task ThenIShouldSeeMyResponseInTheChat()
+    {
+        await _page.QuerySelectorAsync("[class='chat-modal__message-text']:has-text('Vad kan jag hjälpa dig med?')");
+    }
 }
 
     
