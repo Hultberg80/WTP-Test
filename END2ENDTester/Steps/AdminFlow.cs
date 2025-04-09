@@ -1,4 +1,5 @@
-﻿using END2ENDTester.Helpers;
+﻿using System.Net.Mime;
+using END2ENDTester.Helpers;
 
 namespace END2ENDTester.Steps;
 
@@ -19,7 +20,7 @@ public class AdminFlow
     public async Task Setup()
     {
         _playwright = await Playwright.CreateAsync();
-        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = false, SlowMo = 2000 });
+        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = false, SlowMo = 1000 });
         _context = await _browser.NewContextAsync();
         _page = await _context.NewPageAsync();
         _loginHelper = new LoginHelper(_page);
@@ -102,5 +103,49 @@ public class AdminFlow
         Assert.Null(element);
     }
 
-   
+
+    [GivenAttribute("I am at the Admin dashboard and logged in as an admin")]
+    public async Task GivenIAmAtTheAdminDashboardAndLoggedInAsAnAdmin()
+    {
+        await _page.GotoAsync("http://localhost:3001");
+        await _loginHelper.LoginFiller("Admino", "02589");
+    }
+
+    [WhenAttribute("I click on the delete user button where mail equals {string}")]
+    public async Task WhenIClickOnTheDeleteUserButtonWhereMailEquals(string p0)
+    {
+        _page.Dialog += async (_, dialog) =>
+        {
+            if (dialog.Type == "confirm")
+            {
+                await dialog.AcceptAsync();
+            }
+        };
+
+        var rowSelector = $"tr:has(td:text('{p0}'))";
+        var buttonSelector = $"{rowSelector} >> [class='delete-button']";
+
+        await _page.ClickAsync(buttonSelector);
+
+        // Lägg ev. till en kort paus för att se att det händer
+        await _page.WaitForTimeoutAsync(1000);
+    }
+    
+
+    [ThenAttribute("the user should be deleted from the system")]
+    public async Task ThenTheUserShouldBeDeletedFromTheSystem()
+    {
+        var dialogHandled = false;
+
+        _page.Dialog += async (_, dialog) =>
+        {
+            if (dialog.Type == "alert" && dialog.Message.Contains("Användaren har tagits bort"))
+            {
+                await dialog.AcceptAsync();
+                dialogHandled = true;
+            }
+        };
+        
+    }
+    
 }
