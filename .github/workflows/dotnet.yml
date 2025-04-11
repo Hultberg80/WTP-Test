@@ -27,15 +27,15 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: ./Testing/WTP-main
+      working-directory: ./WTP-main
 
     - name: Build Project
       run: dotnet build --no-restore
-      working-directory: ./Testing/WTP-main
+      working-directory: ./WTP-main
 
     - name: Start server
       run: nohup dotnet run &
-      working-directory: ./Testing/WTP-main/server
+      working-directory: ./WTP-main/server
 
     - name: Run API Tests
       run: newman run ./Postman/WTP_Tests.postman_collection.json
@@ -56,36 +56,36 @@ jobs:
 
         - name: Restore dependencies
           run: dotnet restore
-          working-directory: ./Testing/WTP-main
+          working-directory: ./WTP-main
 
         - name: Build Playwright tests
           run: dotnet build
-          working-directory: ./Testing/END2ENDTester.Tests
+          working-directory: ./END2ENDTester.Tests
 
         - name: Install Playwright browsers
           run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
-          working-directory: ./Testing/END2ENDTester.Tests
+          working-directory: ./END2ENDTester.Tests
           
         - name: Start server
           run: nohup dotnet run &
-          working-directory: ./Testing/WTP-main/server
+          working-directory: ./WTP-main/server
 
         - name: Install client dependencies
           run: npm install
-          working-directory: ./Testing/WTP-main/client
+          working-directory: ./WTP-main/client
 
         - name: Install wait-on
           run: npm install wait-on
-          working-directory: ./Testing/WTP-main/client
+          working-directory: ./WTP-main/client
 
         - name: Start client
           run: nohup npm run dev -- --host &
-          working-directory: ./Testing/WTP-main/client
+          working-directory: ./WTP-main/client
 
         - name: Wait for client to be ready
           run: npx wait-on http://localhost:3001
-          working-directory: ./Testing/WTP-main/client
+          working-directory: ./WTP-main/client
 
         - name: Run GUI Tests
           run: dotnet test
-          working-directory: ./Testing/END2ENDTester.Tests
+          working-directory: ./END2ENDTester.Tests
