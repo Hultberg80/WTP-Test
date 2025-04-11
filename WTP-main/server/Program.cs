@@ -27,6 +27,8 @@ public class Program // Deklarerar huvudklassen Program
             options.Cookie.HttpOnly = true;
             options.Cookie.IsEssential = true;
         });
+        
+        // "DefaultConnection": "Host=45.10.162.204;Port=5438;Database=test_db;Username=postgres;Password=_FrozenPresidentSmacks!;"
  
  
         builder.Services.AddScoped<IEmailService, EmailService>(); // Registrerar EmailService som en scopad tjänst
@@ -123,7 +125,7 @@ public class Program // Deklarerar huvudklassen Program
         
              await using var cmd = db.CreateCommand(@"
             SELECT id, sender, message, submitted_at, chat_token
-            FROM chat_messages 
+            FROM chat_messages
             WHERE chat_token = @chat_token
             ORDER BY submitted_at ASC");
         

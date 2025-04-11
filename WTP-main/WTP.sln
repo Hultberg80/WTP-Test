@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "END2ENDTester", "..\END2END
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server", "server\server.csproj", "{6CFB592D-87BD-48FE-9A90-8840CD3713EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest", "..\XUnitTest\XUnitTest.csproj", "{32364A82-14CE-4E8F-BD1A-77ADC753D8F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6CFB592D-87BD-48FE-9A90-8840CD3713EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CFB592D-87BD-48FE-9A90-8840CD3713EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CFB592D-87BD-48FE-9A90-8840CD3713EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32364A82-14CE-4E8F-BD1A-77ADC753D8F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32364A82-14CE-4E8F-BD1A-77ADC753D8F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32364A82-14CE-4E8F-BD1A-77ADC753D8F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32364A82-14CE-4E8F-BD1A-77ADC753D8F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
