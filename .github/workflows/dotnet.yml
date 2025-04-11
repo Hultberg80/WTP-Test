@@ -38,7 +38,7 @@ jobs:
       working-directory: ./WTP-main/server
 
     - name: Run API Tests
-      run: newman run ./Postman/WTP_Tests.postman_collection.json
+      run: newman run ./Postman/WTP_Test.postman_collection.json
       
 
   gui_tests:
@@ -69,22 +69,6 @@ jobs:
         - name: Start server
           run: nohup dotnet run &
           working-directory: ./WTP-main/server
-
-        - name: Install client dependencies
-          run: npm install
-          working-directory: ./WTP-main/client
-
-        - name: Install wait-on
-          run: npm install wait-on
-          working-directory: ./WTP-main/client
-
-        - name: Start client
-          run: nohup npm run dev -- --host &
-          working-directory: ./WTP-main/client
-
-        - name: Wait for client to be ready
-          run: npx wait-on http://localhost:3001
-          working-directory: ./WTP-main/client
 
         - name: Run GUI Tests
           run: dotnet test
