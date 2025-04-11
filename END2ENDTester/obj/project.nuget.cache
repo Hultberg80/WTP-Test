@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bBWBqi4NPog=",
+  "dgSpecHash": "g18vsZjBTrE=",
   "success": true,
   "projectFilePath": "C:\\Users\\hultb\\RiderProjects\\Testing\\END2ENDTester\\END2ENDTester.csproj",
   "expectedPackageFiles": [
@@ -124,7 +124,7 @@
       "message": "Detected package version outside of dependency constraint: xunit.core 2.5.3 requires xunit.extensibility.core (= 2.5.3) but version xunit.extensibility.core 2.9.3 was resolved.",
       "libraryId": "xunit.extensibility.core",
       "targetGraphs": [
-        "net9.0"
+        "net8.0"
       ]
     },
     {
@@ -134,7 +134,7 @@
       "message": "Detected package version outside of dependency constraint: xunit.extensibility.execution 2.5.3 requires xunit.extensibility.core (= 2.5.3) but version xunit.extensibility.core 2.9.3 was resolved.",
       "libraryId": "xunit.extensibility.core",
       "targetGraphs": [
-        "net9.0"
+        "net8.0"
       ]
     }
   ]
