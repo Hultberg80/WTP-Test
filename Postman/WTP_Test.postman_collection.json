@@ -1,0 +1,663 @@
+{
+	"info": {
+		"_postman_id": "b0dec3d4-a370-4db9-a1ea-9d9aa460a160",
+		"name": "WTP Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43523453"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}users",
+							"host": [
+								"{{base_url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"hultberg.80@gmail.com\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}users",
+							"host": [
+								"{{base_url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let userId = 16;\r",
+									"pm.environment.set(\"userId\", userId)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User was deleted successfully\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}users/{{userId}}",
+							"host": [
+								"{{base_url}}users"
+							],
+							"path": [
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let userId = 65;\r",
+									"pm.environment.set(\"userId\", userId)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User was updated successfully\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "     {  \r\n       \"FirstName\": \"Martin\",\r\n        \"Password\": \"1234\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}users/{{userId}}",
+							"host": [
+								"{{base_url}}users"
+							],
+							"path": [
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forms",
+			"item": [
+				{
+					"name": "tele",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FirstName\": \"Martin\",\r\n    \"Email\": \"hultberg.80@gmail.com\",\r\n    \"ServiceType\": \"Bredband\",\r\n    \"IssueType\": \"Övrigt\",\r\n    \"Message\": \"Jag vill ha hjälp med fast telefoni\",\r\n    \"CompanyType\": \"Tele/Bredband\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}tele",
+							"host": [
+								"{{base_url}}tele"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fordon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FirstName\": \"Martin\",\r\n    \"Email\": \"hultberg.80@gmail.com\",\r\n    \"RegNummer\": \"XSS50G\",\r\n    \"IssueType\": \"Övrigt\",\r\n    \"Message\": \"Jag vill ha en ny motor\",\r\n    \"CompanyType\": \"Fordonsservice\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}fordon",
+							"host": [
+								"{{base_url}}fordon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forsakring",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FirstName\": \"Martin\",\r\n    \"Email\": \"hultberg.80@gmail.com\",\r\n    \"ServiceType\": \"Hemförsäkring\",\r\n    \"IssueType\": \"Fakturafrågor\",\r\n    \"Message\": \"Min räkning är dyr\",\r\n    \"CompanyType\": \"Försäkringsärenden\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}forsakring",
+							"host": [
+								"{{base_url}}forsakring"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \r\n        \"Username\": \"hultberg80@gmail.com\",\r\n        \"Password\": \"abc111\"\r\n     \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}login",
+							"host": [
+								"{{base_url}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}logout",
+							"host": [
+								"{{base_url}}logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check auth-status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify user authentication status\", function () {\r",
+									"    pm.expect(pm.response.json().isLoggedIn).to.be.true; // Check if isLoggedIn is true\r",
+									"    pm.expect(pm.response.json().role).to.equal(\"staff\"); // Check if role is staff\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify response includes firstName\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('firstName');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}chat/auth-status",
+							"host": [
+								"{{base_url}}chat"
+							],
+							"path": [
+								"auth-status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "Create message",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sender\": \"Martin\",\r\n    \"message\": \"Tjena tjena\",\r\n    \"chatToken\": \"3c207fcb-0c30-4e3f-b8ae-fd2aff3b8022\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}chat/message",
+							"host": [
+								"{{base_url}}chat"
+							],
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get chat messages by chatToken",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let chatToken = \"3c207fcb-0c30-4e3f-b8ae-fd2aff3b8022\";\r",
+									"pm.environment.set(\"chatToken\", chatToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}chat/messages/{{chatToken}}",
+							"host": [
+								"{{base_url}}chat"
+							],
+							"path": [
+								"messages",
+								"{{chatToken}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tickets",
+			"item": [
+				{
+					"name": "Get tickets based on company",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}tickets",
+							"host": [
+								"{{base_url}}tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n    \"FirstName\": \"John Doe\",\r\n    \"email\": \"hultberg.80@gmail.com\",\r\n \r\n    \"issueType\": \"Övrigt\",\r\n    \"message\": \"Hej, jag har en fråga om min beställning.\",\r\n    \"chatToken\": \"80755554-44e8-4fff-b18a-a46ef6efdeda\",\r\n    \"companyType\": \"Fordonsservice\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}tickets/archive",
+							"host": [
+								"{{base_url}}tickets"
+							],
+							"path": [
+								"archive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3001/api/",
+			"type": "string"
+		}
+	]
+}
