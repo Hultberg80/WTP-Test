@@ -14,6 +14,21 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U testuser -d testdb"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+          
     steps:
     - uses: actions/checkout@v4
     
@@ -32,6 +47,9 @@ jobs:
     - name: Build Project
       run: dotnet build --no-restore
       working-directory: ./WTP-main
+
+    - name: Set connection string for PostgreSQL
+      run: echo "ConnectionStrings:DefaultConnection=Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=testdb" >> $GITHUB_ENV
 
     - name: Start server
       run: nohup dotnet run &
