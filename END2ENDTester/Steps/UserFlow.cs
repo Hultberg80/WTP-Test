@@ -39,7 +39,7 @@ public class UserFlow
     public async Task GivenISeeTheFaqButton()
     {
         var element = await _page.QuerySelectorAsync("[id='faq-link']");
-        Assert.Null(element);
+        Assert.NotNull(element);
     }
 
     [WhenAttribute("I click on the faq button")]
@@ -66,7 +66,7 @@ public class UserFlow
     public async Task GivenISeeTheYesButton()
     {
         var element = await _page.QuerySelectorAsync("[class='faq-buttons'], [text='Ja']");
-        Assert.Null(element);
+        Assert.NotNull(element);
     }
 
     [WhenAttribute("I click on the yes button")]
