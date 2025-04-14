@@ -108,7 +108,7 @@ namespace END2ENDTester.Features.AdminFlow
         await testRunner.GivenAsync("I am at the Admin dashboard and logged in as an admin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
-        await testRunner.WhenAsync("I click on the delete user button where mail equals \"6@mail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        await testRunner.WhenAsync("I click on the delete user button where mail equals \"5@mail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
         await testRunner.ThenAsync("the user should be deleted from the system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

@@ -32,7 +32,7 @@ public class UserFlow
     [GivenAttribute("I am at the WTP page")]
     public async Task GivenIAmAtTheWtpPage()
     {
-        await _page.GotoAsync("http://localhost:3003/");
+        await _page.GotoAsync("http://localhost:3002/");
     }
 
     [GivenAttribute("I see the faq button")]
@@ -59,7 +59,7 @@ public class UserFlow
     [GivenAttribute("I am at the FAQ page")]
     public async Task GivenIAmAtTheFaqPage()
     {
-        await _page.GotoAsync("http://localhost:3003/faq");
+        await _page.GotoAsync("http://localhost:3002/faq");
     }
 
     [GivenAttribute("I see the yes button")]
@@ -86,7 +86,7 @@ public class UserFlow
     [GivenAttribute("I am at the form page")]
     public async Task GivenIAmAtTheFormPage()
     {
-        await _page.GotoAsync("http://localhost:3003/dynamisk");
+        await _page.GotoAsync("http://localhost:3002/dynamisk");
     }
 
     [WhenAttribute("I select the field companyType and enter {string}")]
