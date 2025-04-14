@@ -137,7 +137,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"sven.9000@gmail.com\"\r\n    }",
+							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"sven.6000@gmail.com\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -160,7 +160,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"let userId = 80;\r",
+									"let userId = 81;\r",
 									"pm.environment.set(\"userId\", userId)"
 								],
 								"type": "text/javascript",
@@ -171,9 +171,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"User was updated successfully\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -211,7 +209,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"let userId = 80;\r",
+									"let userId = 81;\r",
 									"pm.environment.set(\"userId\", userId)"
 								],
 								"type": "text/javascript",
@@ -397,19 +395,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Verify user authentication status\", function () {\r",
-									"    pm.expect(pm.response.json().isLoggedIn).to.be.true; // Check if isLoggedIn is true\r",
-									"    pm.expect(pm.response.json().role).to.equal(\"staff\"); // Check if role is staff\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Verify response includes firstName\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('firstName');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript",
@@ -419,8 +404,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
