@@ -136,7 +136,7 @@ function Layout() {
               ) : (
                 // Om användaren inte är inloggad, visa en länk till inloggningssidan med en ikon
                 <NavLink to="/staff/login">
-                  <img src="/img/login.png" alt="Logga in" className="login-img"/>
+                  <img src="/img/login.png" alt="Logga in" className="login-img" id="loggaIn"/>
                 </NavLink>
               )}
             </div>

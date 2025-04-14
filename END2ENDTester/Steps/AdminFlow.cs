@@ -42,7 +42,7 @@ public class AdminFlow
     [WhenAttribute("I click on the {string} symbol")]
     public async Task WhenIClickOnTheSymbol(string login)
     {
-        await _page.GetByAltText("Logga in").ClickAsync();
+        await _page.Locator("#loggaIn").ClickAsync();
     }
 
     [WhenAttribute("I enter username and password")]
