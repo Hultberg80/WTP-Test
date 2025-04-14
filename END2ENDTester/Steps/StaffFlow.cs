@@ -14,12 +14,19 @@ public class StaffFlow
     private IBrowserContext _context;
     private IPage _page;
     private LoginHelper _loginHelper;
+    private string BaseUrl => Environment.GetEnvironmentVariable("TEST_APP_URL") ?? "http://localhost:3002/";
+
 
     [BeforeScenario]
     public async Task Setup()
     {
         _playwright = await Playwright.CreateAsync();
-        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = false, SlowMo = 2000 });
+        var isCi = Environment.GetEnvironmentVariable("CI") != null;
+        _browser = await _playwright.Chromium.LaunchAsync(new()
+        { 
+            Headless = isCi, // Use headless mode in CI
+            SlowMo = isCi ? 0 : 1000 // SlowMo might not be needed in CI
+        });
         _context = await _browser.NewContextAsync();
         _page = await _context.NewPageAsync();
         _loginHelper = new LoginHelper(_page);
@@ -35,7 +42,7 @@ public class StaffFlow
     [GivenAttribute("I am at the WTP page and logged in as a staff")]
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAStaff()
     {
-        await _page.GotoAsync("http://localhost:3002/");
+        await _page.GotoAsync($"{BaseUrl}");
         await _loginHelper.LoginFiller("zunken123", "abc123");
     }
 
@@ -70,7 +77,7 @@ public class StaffFlow
     [GivenAttribute("I am at the staff dashboard")]
     public async Task GivenIAmAtTheStaffDashboard()
     {
-        await _page.GotoAsync("http://localhost:3002/staff/dashboard");
+        await _page.GotoAsync($"{BaseUrl}staff/dashboard");
     }
 
 
@@ -92,7 +99,7 @@ public class StaffFlow
     [GivenAttribute("I click on a ticket on öppna chatt")]
     public async Task GivenIClickOnATicketOnOppnaChatt()
     {
-        await _page.GotoAsync("http://localhost:3002/staff/dashboard");
+        await _page.GotoAsync($"{BaseUrl}staff/dashboard");
         await _loginHelper.LoginFiller("zunken123", "abc123");
         await _page.ClickAsync("div.ticket-task-token a[href='/chat/2885815c-1181-4101-b473-54947e6cb33c']:has-text('Öppna chatt')");
     }

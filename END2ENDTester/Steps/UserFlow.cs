@@ -11,12 +11,18 @@ public class UserFlow
     private IBrowser _browser;
     private IBrowserContext _context;
     private IPage _page;
+    private string BaseUrl => Environment.GetEnvironmentVariable("TEST_APP_URL") ?? "http://localhost:3002/";
 
     [BeforeScenario]
     public async Task Setup()
     {
         _playwright = await Playwright.CreateAsync();
-        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = false, SlowMo = 1000 });
+        var isCi = Environment.GetEnvironmentVariable("CI") != null;
+        _browser = await _playwright.Chromium.LaunchAsync(new()
+        { 
+            Headless = isCi, // Use headless mode in CI
+            SlowMo = isCi ? 0 : 1000 // SlowMo might not be needed in CI
+        });
         _context = await _browser.NewContextAsync();
         _page = await _context.NewPageAsync();
     }
@@ -32,7 +38,7 @@ public class UserFlow
     [GivenAttribute("I am at the WTP page")]
     public async Task GivenIAmAtTheWtpPage()
     {
-        await _page.GotoAsync("http://localhost:3002/");
+        await _page.GotoAsync($"{BaseUrl}");
     }
 
     [GivenAttribute("I see the faq button")]
@@ -59,7 +65,7 @@ public class UserFlow
     [GivenAttribute("I am at the FAQ page")]
     public async Task GivenIAmAtTheFaqPage()
     {
-        await _page.GotoAsync("http://localhost:3002/faq");
+        await _page.GotoAsync($"{BaseUrl}faq");
     }
 
     [GivenAttribute("I see the yes button")]
@@ -86,7 +92,7 @@ public class UserFlow
     [GivenAttribute("I am at the form page")]
     public async Task GivenIAmAtTheFormPage()
     {
-        await _page.GotoAsync("http://localhost:3002/dynamisk");
+        await _page.GotoAsync($"{BaseUrl}dynamisk");
     }
 
     [WhenAttribute("I select the field companyType and enter {string}")]
