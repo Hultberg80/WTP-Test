@@ -77,6 +77,18 @@ jobs:
       run: nohup npm run dev -- --host --port 3002 &
       working-directory: ./WTP-main/client
 
+    - name: Verify client is accessible
+      run: |
+        # Wait for service to be up
+        npx wait-on -t 90000 http://localhost:3002
+    
+        # Verify with curl
+        curl -v http://localhost:3002/
+    
+        # Additional wait
+        sleep 20
+        working-directory: ./WTP-main/client
+
     - name: Wait for client to be ready
       run: |
         npx wait-on -t 60000 http://localhost:3002
@@ -84,8 +96,17 @@ jobs:
       working-directory: ./WTP-main/client
 
     - name: Run GUI Tests (with xvfb)
-      run: xvfb-run --auto-servernum -- dotnet test
+      run: |
+        export CI=true
+        xvfb-run --auto-servernum -- dotnet test
       working-directory: ./END2ENDTester
+
+    - name: Upload failure screenshots
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-artifacts
+        path: ./END2ENDTester/*.png
 
 
   deploy:
