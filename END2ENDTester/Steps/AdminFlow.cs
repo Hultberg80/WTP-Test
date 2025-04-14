@@ -36,7 +36,7 @@ public class AdminFlow
     [GivenAttribute("I am on the WTP page")]
     public async Task GivenIAmOnTheWtpPage()
     {
-        await _page.GotoAsync("http://localhost:3003/");
+        await _page.GotoAsync("http://localhost:3002/");
     }
 
     [WhenAttribute("I click on the {string} symbol")]
@@ -69,7 +69,7 @@ public class AdminFlow
     [GivenAttribute("I am at the WTP page and logged in as an admin")]
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAnAdmin()
     {
-        await _page.GotoAsync("http://localhost:3003/");
+        await _page.GotoAsync("http://localhost:3002/");
         await _loginHelper.LoginFiller("Admino", "02589");
     }
 
@@ -107,7 +107,7 @@ public class AdminFlow
     [GivenAttribute("I am at the Admin dashboard and logged in as an admin")]
     public async Task GivenIAmAtTheAdminDashboardAndLoggedInAsAnAdmin()
     {
-        await _page.GotoAsync("http://localhost:3003");
+        await _page.GotoAsync("http://localhost:3002");
         await _loginHelper.LoginFiller("Admino", "02589");
     }
 
