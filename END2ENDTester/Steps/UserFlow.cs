@@ -16,7 +16,7 @@ public class UserFlow
     public async Task Setup()
     {
         _playwright = await Playwright.CreateAsync();
-        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = true, SlowMo = 1000 });
+        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = false, SlowMo = 1000 });
         _context = await _browser.NewContextAsync();
         _page = await _context.NewPageAsync();
     }
@@ -32,7 +32,7 @@ public class UserFlow
     [GivenAttribute("I am at the WTP page")]
     public async Task GivenIAmAtTheWtpPage()
     {
-        await _page.GotoAsync("http://localhost:3001/");
+        await _page.GotoAsync("http://localhost:3003/");
     }
 
     [GivenAttribute("I see the faq button")]
@@ -59,7 +59,7 @@ public class UserFlow
     [GivenAttribute("I am at the FAQ page")]
     public async Task GivenIAmAtTheFaqPage()
     {
-        await _page.GotoAsync("http://localhost:3001/faq");
+        await _page.GotoAsync("http://localhost:3003/faq");
     }
 
     [GivenAttribute("I see the yes button")]
@@ -86,7 +86,7 @@ public class UserFlow
     [GivenAttribute("I am at the form page")]
     public async Task GivenIAmAtTheFormPage()
     {
-        await _page.GotoAsync("http://localhost:3001/dynamisk");
+        await _page.GotoAsync("http://localhost:3003/dynamisk");
     }
 
     [WhenAttribute("I select the field companyType and enter {string}")]

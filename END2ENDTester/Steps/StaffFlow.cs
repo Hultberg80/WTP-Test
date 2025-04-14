@@ -19,7 +19,7 @@ public class StaffFlow
     public async Task Setup()
     {
         _playwright = await Playwright.CreateAsync();
-        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = true, SlowMo = 2000 });
+        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = false, SlowMo = 2000 });
         _context = await _browser.NewContextAsync();
         _page = await _context.NewPageAsync();
         _loginHelper = new LoginHelper(_page);
@@ -35,8 +35,8 @@ public class StaffFlow
     [GivenAttribute("I am at the WTP page and logged in as a staff")]
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAStaff()
     {
-        await _page.GotoAsync("http://localhost:3001/");
-        await _loginHelper.LoginFiller("zunken123", "abc111");
+        await _page.GotoAsync("http://localhost:3003/");
+        await _loginHelper.LoginFiller("zunken123", "abc123");
     }
 
     [WhenAttribute("I click on the update password button")]
@@ -70,14 +70,14 @@ public class StaffFlow
     [GivenAttribute("I am at the staff dashboard")]
     public async Task GivenIAmAtTheStaffDashboard()
     {
-        await _page.GotoAsync("http://localhost:3002/staff/dashboard");
+        await _page.GotoAsync("http://localhost:3003/staff/dashboard");
     }
 
 
     [WhenAttribute("I click on a ticket and drag it to my errands")]
     public async Task WhenIClickOnATicketAndDragItToMyErrands()
     {
-        var sourceSelector = "a[href='/chat/80755554-44e8-4fff-b18a-a46ef6efdeda']:has-text('Öppna chatt')";
+        var sourceSelector = "a[href='/chat/2885815c-1181-4101-b473-54947e6cb33c']:has-text('Öppna chatt')";
         var targetSelector = ".ticket-items-container"; // Uppdatera detta med rätt selector för målet
         await _page.DragAndDropAsync(sourceSelector, targetSelector);
     }
@@ -85,16 +85,16 @@ public class StaffFlow
     [ThenAttribute("I should see the ticket in my errands")]
     public async Task ThenIShouldSeeTheTicketInMyErrands()
     {
-        await _page.QuerySelectorAsync("a[href='/chat/80755554-44e8-4fff-b18a-a46ef6efdeda']:has-text('Öppna chatt')");
+        await _page.QuerySelectorAsync("a[href='/chat/2885815c-1181-4101-b473-54947e6cb33c']:has-text('Öppna chatt')");
     }
 
 
     [GivenAttribute("I click on a ticket on öppna chatt")]
     public async Task GivenIClickOnATicketOnOppnaChatt()
     {
-        await _page.GotoAsync("http://localhost:3002/staff/dashboard");
-        await _loginHelper.LoginFiller("zunken123", "abc111");
-        await _page.ClickAsync("div.ticket-task-token a");
+        await _page.GotoAsync("http://localhost:3003/staff/dashboard");
+        await _loginHelper.LoginFiller("zunken123", "abc123");
+        await _page.ClickAsync("div.ticket-task-token a[href='/chat/2885815c-1181-4101-b473-54947e6cb33c']:has-text('Öppna chatt')");
     }
 
     [WhenAttribute("I write a response in the chat")]

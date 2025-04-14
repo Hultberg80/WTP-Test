@@ -28,7 +28,7 @@ namespace END2ENDTester.Features.AdminFlow
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "login.feature"
+#line 1 "Login.feature"
 #line hidden
         
         public LoginAsAdminFeature(LoginAsAdminFeature.FixtureData fixtureData, Xunit.Abstractions.ITestOutputHelper testOutputHelper)

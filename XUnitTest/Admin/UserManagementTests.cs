@@ -8,7 +8,7 @@ namespace server.Tests.Admin
 {
     public class UserManagementTests
     {
-        private readonly string _connectionString = "Host=localhost;Port=5432;Database=wtp;Username=sebastianholmberg;";
+        private readonly string _connectionString = "Host=45.10.162.204;Port=5438;Database=test_db;Username=postgres;Password=_FrozenPresidentSmacks!;";
         
         [Fact]
         public async Task CreateUser_AssignsCorrectRole()

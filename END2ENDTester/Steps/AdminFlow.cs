@@ -20,7 +20,7 @@ public class AdminFlow
     public async Task Setup()
     {
         _playwright = await Playwright.CreateAsync();
-        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = true, SlowMo = 1000 });
+        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = false, SlowMo = 1000 });
         _context = await _browser.NewContextAsync();
         _page = await _context.NewPageAsync();
         _loginHelper = new LoginHelper(_page);
@@ -36,7 +36,7 @@ public class AdminFlow
     [GivenAttribute("I am on the WTP page")]
     public async Task GivenIAmOnTheWtpPage()
     {
-        await _page.GotoAsync("http://localhost:3001/");
+        await _page.GotoAsync("http://localhost:3003/");
     }
 
     [WhenAttribute("I click on the {string} symbol")]
@@ -62,14 +62,14 @@ public class AdminFlow
     [ThenAttribute("I should see the admin dashboard view")]
     public async Task ThenIShouldSeeTheAdminDashboardView()
     {
-        var element = await _page.GotoAsync("http://localhost:3001/admin/dashboard");
+        var element = await _page.GotoAsync("http://localhost:3002/admin/dashboard");
         Assert.NotNull(element);
     }
 
     [GivenAttribute("I am at the WTP page and logged in as an admin")]
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAnAdmin()
     {
-        await _page.GotoAsync("http://localhost:3001/");
+        await _page.GotoAsync("http://localhost:3003/");
         await _loginHelper.LoginFiller("Admino", "02589");
     }
 
@@ -83,7 +83,7 @@ public class AdminFlow
     [WhenAttribute("fill out the form with {string} and {string}")]
     public async Task WhenFillOutTheFormWithAnd(string fordon, string user)
     {
-        await _page.FillAsync("[name='email'][type='text']", "hultberg80@gmail.com");
+        await _page.FillAsync("[name='email'][type='text']", "hultberg800@gmail.com");
         await _page.FillAsync("[name='firstName'][type='text']", "zunken123");
         await _page.FillAsync("[name='password'][type='password']", "abc123");
         await _page.SelectOptionAsync("[name='company'][class='login-bar']", new SelectOptionValue() { Value = "fordon" });
@@ -107,7 +107,7 @@ public class AdminFlow
     [GivenAttribute("I am at the Admin dashboard and logged in as an admin")]
     public async Task GivenIAmAtTheAdminDashboardAndLoggedInAsAnAdmin()
     {
-        await _page.GotoAsync("http://localhost:3001");
+        await _page.GotoAsync("http://localhost:3003");
         await _loginHelper.LoginFiller("Admino", "02589");
     }
 
