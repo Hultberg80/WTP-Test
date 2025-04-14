@@ -91,7 +91,7 @@ jobs:
       working-directory: ./WTP-main/client
 
     - name: Wait for client to be ready
-      run: npx wait-on http://localhost:3002
+      run: npx wait-on http://localhost:3003
       working-directory: ./WTP-main/client
 
     - name: Run GUI Tests (with xvfb)
