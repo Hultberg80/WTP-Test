@@ -297,7 +297,10 @@ public class Program // Deklarerar huvudklassen Program
                 await using var cmd = db.CreateCommand(@"
                 UPDATE users 
                 SET first_name = CASE WHEN @first_name = '' THEN first_name ELSE @first_name END,
-                    password = CASE WHEN @password = '' THEN password ELSE @password END
+                    password = CASE WHEN @password = '' THEN password ELSE @password END,
+                    company = CASE WHEN @company = '' THEN company ELSE @company END,
+                    email = CASE WHEN @email = '' THEN email ELSE @email END,
+                    role_id = CASE WHEN @role_id = 0 THEN role_id ELSE @role_id END
                 WHERE ""Id"" = @userId AND ""Id"" = @currentUserId
                 RETURNING ""Id"", first_name;");
 
@@ -305,6 +308,9 @@ public class Program // Deklarerar huvudklassen Program
                 cmd.Parameters.AddWithValue("currentUserId", int.Parse(currentUserId));
                 cmd.Parameters.AddWithValue("first_name", user.FirstName);
                 cmd.Parameters.AddWithValue("password", user.Password);
+                cmd.Parameters.AddWithValue("company", user.Company);
+                cmd.Parameters.AddWithValue("role_id", user.Role);
+                cmd.Parameters.AddWithValue("email", user.Email);
 
                 await using var reader = await cmd.ExecuteReaderAsync();
                 if (await reader.ReadAsync())
@@ -321,7 +327,11 @@ public class Program // Deklarerar huvudklassen Program
                         user = new
                         {
                             Id = reader.GetInt32(0),
-                            FirstName = reader.GetString(1)
+                            FirstName = reader.GetString(1),
+                            Password = reader.GetString(2),
+                            Company = reader.GetString(3),
+                            Role = reader.GetInt32(4) == 1 ? "staff" : "admin",
+                            Email = reader.GetString(5)
                         }
                     });
                 }

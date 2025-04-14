@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import ChatLink from '../ChatLink';
 import { useAuth } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 function UserAndTicketPage() {
   const { user } = useAuth(); // Get current user from auth context
@@ -10,6 +12,7 @@ function UserAndTicketPage() {
   const [error, setError] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [viewMode, setViewMode] = useState('users'); // 'users' or 'tickets'
+  const navigate = useNavigate();
 
   // Funktion för att hämta alla användare
   async function fetchUsers() {
@@ -112,46 +115,7 @@ function UserAndTicketPage() {
     }
   }
 
-  // Funktion för att uppdatera en användare
-  async function updateUser(userId, user) {
-    const newFirstName = prompt("Ange nytt förnamn (eller lämna tomt för att behålla):", user.firstName);
-    const newPassword = prompt("Ange nytt lösenord (eller lämna tomt för att behålla):", "");
-    const newCompany = prompt("Ange nytt företag (eller lämna tomt för att behålla):", user.company);
-    const newRole = prompt("Ange ny roll (staff/admin):", user.role);
-
-    const updatedUserData = {
-        firstName: newFirstName?.trim() || user.firstName,
-        password: newPassword?.trim(),
-        company: newCompany?.trim() || user.company,
-        role: newRole?.trim() || user.role
-    };
   
-    try {
-      const response = await fetch(`/api/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(updatedUserData),
-        credentials: "include"
-      });
-  
-      if (!response.ok) {
-        throw new Error("Något gick fel vid uppdatering av användaren");
-      }
-  
-      const result = await response.json();
-      alert(result.message);
-  
-      // Update UI with the new data
-      setUsers(prevUsers =>
-        prevUsers.map(u => (u.id === userId ? { ...u, ...updatedUserData } : u))
-      );
-    } catch (err) {
-      console.error("Fel vid uppdatering av användare:", err);
-      alert(`Fel vid uppdatering: ${err.message}`);
-    }
-  }
 
   // Funktion för att ta bort en användare
   async function deleteUser(userId) {
@@ -253,7 +217,12 @@ function UserAndTicketPage() {
                   <td>{user.company}</td>
                   <td>{user.role}</td>
                   <td>
-                    <button className="edit-button" onClick={() => updateUser(user.id, user)}>Redigera</button>
+                    <button
+                        className="edit-button"
+                        onClick={() => navigate('/admin/update-user', { state: { user } })} // Skicka användardata via state
+                    >
+                      Redigera
+                    </button>
                     <button className="delete-button" onClick={() => deleteUser(user.id)} disabled={deleteLoading}>Ta bort</button>
                   </td>
                 </tr>

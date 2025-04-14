@@ -70,7 +70,7 @@ public class AdminFlow
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAnAdmin()
     {
         await _page.GotoAsync("http://localhost:3001/");
-        await _loginHelper.LoginFiller("ville", "12345");
+        await _loginHelper.LoginFiller("Admino", "02589");
     }
 
 

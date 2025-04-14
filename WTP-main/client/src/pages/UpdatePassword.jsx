@@ -48,7 +48,8 @@ function UpdateUserInfo() {
         },
         body: JSON.stringify({
           firstName: formData.firstName,
-          password: formData.password
+          password: formData.password,
+          
         })
       });
 

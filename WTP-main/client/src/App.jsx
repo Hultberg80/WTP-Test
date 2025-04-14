@@ -12,6 +12,7 @@ import Faq from './pages/Faq';
 import UpdateUserInfo from './pages/UpdatePassword';
 import { useChat } from './ChatContext';
 import ProtectedRoute from './ProtectedRoute';
+import AdminUpdateUser from "./pages/AdminUpdateUser.jsx";
 
 function ChatRedirect({ match }) {
   const { openChat } = useChat();
@@ -46,6 +47,11 @@ function App() {
               <Route path="create-user" element={
                 <ProtectedRoute requiredRole="admin">
                   <AdminCreateUser />
+                </ProtectedRoute>
+              } />
+              <Route path="update-user" element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminUpdateUser />
                 </ProtectedRoute>
               } />
             </Route>
