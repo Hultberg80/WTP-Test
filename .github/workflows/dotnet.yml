@@ -8,16 +8,6 @@ jobs:
   api_tests:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: _FrozenPresidentSmacks!
-          POSTGRES_DB: test_db
-        ports:
-          - 5438:5432
-
     steps:
       - uses: actions/checkout@v4
 
@@ -36,9 +26,6 @@ jobs:
       - name: Build Project
         run: dotnet build --no-restore
         working-directory: ./WTP-main
-
-      - name: Set connection string for PostgreSQL
-        run: echo "ConnectionStrings:DefaultConnection=Host=45.10.162.204;Port=5438;Username=postgres;Password=_FrozenPresidentSmacks!;Database=test_db" >> $GITHUB_ENV
 
       - name: Start server
         run: nohup dotnet run &
