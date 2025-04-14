@@ -1,16 +1,63 @@
 {
 	"info": {
-		"_postman_id": "b0dec3d4-a370-4db9-a1ea-9d9aa460a160",
-		"name": "WTP Test",
+		"_postman_id": "6dba5418-33c0-41a1-8bd1-c3bd98d3a7df",
+		"name": "Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43523453"
 	},
 	"item": [
 		{
-			"name": "Users",
+			"name": "Flow",
 			"item": [
 				{
-					"name": "Get all users",
+					"name": "Login Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \r\n        \"Username\": \"hultberg80@gmail.com\",\r\n        \"Password\": \"1234\"\r\n     \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}login",
+							"host": [
+								"{{base_url}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -60,7 +107,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user",
+					"name": "Create user Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -90,7 +137,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"sven.80@gmail.com\"\r\n    }",
+							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"sven.800@gmail.com\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -107,13 +154,13 @@
 					"response": []
 				},
 				{
-					"name": "Update user by id",
+					"name": "Update user by id Copy",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"let userId = 80;\r",
+									"let userId = 148;\r",
 									"pm.environment.set(\"userId\", userId)"
 								],
 								"type": "text/javascript",
@@ -158,7 +205,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete user by id",
+					"name": "Delete user by id Copy",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -210,14 +257,9 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Forms",
-			"item": [
+				},
 				{
-					"name": "tele",
+					"name": "tele Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -261,7 +303,7 @@
 					"response": []
 				},
 				{
-					"name": "fordon",
+					"name": "fordon Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -305,7 +347,7 @@
 					"response": []
 				},
 				{
-					"name": "forsakring",
+					"name": "forsakring Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -347,61 +389,9 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Login",
-			"item": [
-				{
-					"name": "Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n        \r\n        \"Username\": \"hultberg80@gmail.com\",\r\n        \"Password\": \"1234\"\r\n     \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}login",
-							"host": [
-								"{{base_url}}login"
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "Check auth-status",
+					"name": "Check auth-status Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -450,56 +440,7 @@
 					"response": []
 				},
 				{
-					"name": "Logout",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}logout",
-							"host": [
-								"{{base_url}}logout"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Chat",
-			"item": [
-				{
-					"name": "Create message",
+					"name": "Create message Copy",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -549,7 +490,7 @@
 					"response": []
 				},
 				{
-					"name": "Get chat messages by chatToken",
+					"name": "Get chat messages by chatToken Copy",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -602,14 +543,9 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Tickets",
-			"item": [
+				},
 				{
-					"name": "Get tickets based on company",
+					"name": "Get tickets based on company Copy",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -635,7 +571,7 @@
 					"response": []
 				},
 				{
-					"name": "Archive ticket",
+					"name": "Archive ticket Copy",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -655,6 +591,50 @@
 							],
 							"path": [
 								"archive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}logout",
+							"host": [
+								"{{base_url}}logout"
 							]
 						}
 					},
