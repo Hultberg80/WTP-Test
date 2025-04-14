@@ -28,7 +28,13 @@ public class AdminFlow
             Headless = isCi, // Use headless mode in CI
             SlowMo = isCi ? 0 : 1000 // SlowMo might not be needed in CI
         });
-        _context = await _browser.NewContextAsync();
+        _context = await _browser.NewContextAsync(new BrowserNewContextOptions
+        {
+            ViewportSize = new ViewportSize { Width = 1920, Height = 1080 },
+            // Force desktop mode
+            IsMobile = false,
+            HasTouch = false
+        });
         _page = await _context.NewPageAsync();
         _loginHelper = new LoginHelper(_page);
     }
@@ -43,7 +49,13 @@ public class AdminFlow
     [GivenAttribute("I am on the WTP page")]
     public async Task GivenIAmOnTheWtpPage()
     {
-        await _page.GotoAsync($"{BaseUrl}");
+        await _page.GotoAsync("http://localhost:3002/");
+        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        await _page.ScreenshotAsync(new() { Path = "page-loaded.png" });
+    
+        // Log page content for debugging
+        var content = await _page.ContentAsync();
+        Console.WriteLine($"Page HTML: {content.Substring(0, Math.Min(500, content.Length))}...");
     }
 
     [WhenAttribute("I click on the {string} symbol")]
