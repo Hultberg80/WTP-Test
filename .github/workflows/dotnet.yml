@@ -1,127 +1,113 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
 name: CI/CD Test
 
 on:
   push:
     branches: [ "main" ]
 
-
 jobs:
-
   api_tests:
-
     runs-on: ubuntu-latest
 
     services:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testpass
-          POSTGRES_DB: testdb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: _FrozenPresidentSmacks!
+          POSTGRES_DB: test_db
         ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U testuser -d testdb"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-          
+          - 5438:5432
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-        
-    - name: Install Newman
-      run: npm install -g newman
+      - uses: actions/checkout@v4
 
-    - name: Restore dependencies
-      run: dotnet restore
-      working-directory: ./WTP-main
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-    - name: Build Project
-      run: dotnet build --no-restore
-      working-directory: ./WTP-main
+      - name: Install Newman
+        run: npm install -g newman
 
-    - name: Set connection string for PostgreSQL
-      run: echo "ConnectionStrings:DefaultConnection=Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=testdb" >> $GITHUB_ENV
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./WTP-main
 
-    - name: Start server
-      run: nohup dotnet run &
-      working-directory: ./WTP-main/server
+      - name: Build Project
+        run: dotnet build --no-restore
+        working-directory: ./WTP-main
 
-    - name: Run API Tests
-      run: newman run ./Postman/WTP_Test.postman_collection.json
-      
+      - name: Set connection string for PostgreSQL
+        run: echo "ConnectionStrings:DefaultConnection=Host=45.10.162.204;Port=5438;Username=postgres;Password=_FrozenPresidentSmacks!;Database=test_db" >> $GITHUB_ENV
+
+      - name: Start server
+        run: nohup dotnet run &
+        working-directory: ./WTP-main/server
+
+      - name: Run API Tests
+        run: newman run ./Postman/WTP_Test.postman_collection.json
 
   gui_tests:
-    
-      runs-on: ubuntu-latest
-      needs: api_tests
-      
-      steps:
-        - uses: actions/checkout@v4
-        
-        - name: Setup .NET
-          uses: actions/setup-dotnet@v4
-          with:
-            dotnet-version: 8.0.x
+    runs-on: ubuntu-latest
+    needs: api_tests
 
-        - name: Restore dependencies
-          run: dotnet restore
-          working-directory: ./WTP-main
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Build Playwright tests
-          run: dotnet build
-          working-directory: ./END2ENDTester.Tests
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-        - name: Install Playwright browsers
-          run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
-          working-directory: ./END2ENDTester.Tests
-          
-        - name: Start server
-          run: nohup dotnet run &
-          working-directory: ./WTP-main/server
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./WTP-main
 
-        - name: Install client dependencies
-          run: npm install
-          working-directory: ./WTP-main/client
+      - name: Build Playwright tests
+        run: dotnet build
+        working-directory: ./END2ENDTester.Tests
 
-        - name: Install wait-on
-          run: npm install wait-on
-          working-directory: ./WTP-main/client
+      - name: Install Playwright browsers
+        run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+        working-directory: ./END2ENDTester.Tests
 
-        - name: Start client
-          run: nohup npm run dev -- --host &
-          working-directory: ./WTP-main/client
+      - name: Start server
+        run: nohup dotnet run &
+        working-directory: ./WTP-main/server
 
-        - name: Wait for client to be ready
-          run: npx wait-on http://localhost:3001
-          working-directory: ./WTP-main/client
+      - name: Install client dependencies
+        run: npm install
+        working-directory: ./WTP-main/client
 
-        - name: Run GUI Tests
-          run: dotnet test
-          working-directory: ./END2ENDTester.Tests
+      - name: Install wait-on
+        run: npm install wait-on
+        working-directory: ./WTP-main/client
+
+      - name: Start client
+        run: nohup npm run dev -- --host &
+        working-directory: ./WTP-main/client
+
+      - name: Wait for client to be ready
+        run: npx wait-on http://localhost:3001
+        working-directory: ./WTP-main/client
+
+      - name: Run GUI Tests
+        run: dotnet test
+        working-directory: ./END2ENDTester.Tests
 
   deploy:
-  
-      name: Deploy to Server
-      runs-on: ubuntu-latest
-      needs: [api_tests, gui_tests] # Kör endast om alla tidigare tester är OK
-      
-      steps:
-        - name: Deploy App
-          uses: appleboy/ssh-action@v1.2.0
-          with:
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.USERNAME }}
-            password: ${{ secrets.PASSWORD }}
-            port: ${{ secrets.PORT }}
-            script: | 
-              cd /srv/www/malmo/martin
-              git clone https://github.com/Hultberg80/WTP-Test.git
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+    needs: [api_tests, gui_tests]
+
+    steps:
+      - name: Deploy App
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /srv/www/malmo/martin
+            git clone https://github.com/Hultberg80/WTP-Test.git
