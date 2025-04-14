@@ -17,17 +17,6 @@ public class Program // Deklarerar huvudklassen Program
         var builder = WebApplication.CreateBuilder(args); // Skapar en WebApplicationBuilder
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         
-        // Om anslutningssträngen inte finns i appsettings.json, använd miljövariabeln
-        if (string.IsNullOrEmpty(connectionString))
-        {
-            connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection");
-        }
-
-        if (string.IsNullOrEmpty(connectionString))
-        {
-            throw new InvalidOperationException("Connection string is not set.");
-        }
-        
         NpgsqlDataSource postgresdb = NpgsqlDataSource.Create(connectionString);
         
         builder.Services.AddSingleton<NpgsqlDataSource>(postgresdb);

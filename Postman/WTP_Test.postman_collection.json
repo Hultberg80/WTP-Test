@@ -27,14 +27,29 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{base_url}}users",
 							"host": [
@@ -62,8 +77,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -72,7 +90,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"hultberg.80@gmail.com\"\r\n    }",
+							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"sven.80@gmail.com\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -89,66 +107,13 @@
 					"response": []
 				},
 				{
-					"name": "Delete user by id",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"let userId = 16;\r",
-									"pm.environment.set(\"userId\", userId)"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"User was deleted successfully\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}users/{{userId}}",
-							"host": [
-								"{{base_url}}users"
-							],
-							"path": [
-								"{{userId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Update user by id",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"let userId = 65;\r",
+									"let userId = 80;\r",
 									"pm.environment.set(\"userId\", userId)"
 								],
 								"type": "text/javascript",
@@ -173,7 +138,61 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "     {  \r\n       \"FirstName\": \"Martin\",\r\n        \"Password\": \"1234\"\r\n    }",
+							"raw": "     {  \r\n       \"FirstName\": \"Martin\",\r\n        \"Password\": \"abc111\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}users/{{userId}}",
+							"host": [
+								"{{base_url}}users"
+							],
+							"path": [
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let userId = 83;\r",
+									"pm.environment.set(\"userId\", userId)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User was deleted successfully\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -352,8 +371,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -362,7 +384,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \r\n        \"Username\": \"hultberg80@gmail.com\",\r\n        \"Password\": \"abc111\"\r\n     \r\n}",
+							"raw": "{\r\n        \r\n        \"Username\": \"hultberg80@gmail.com\",\r\n        \"Password\": \"1234\"\r\n     \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -373,50 +395,6 @@
 							"raw": "{{base_url}}login",
 							"host": [
 								"{{base_url}}login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Logout",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}logout",
-							"host": [
-								"{{base_url}}logout"
 							]
 						}
 					},
@@ -470,6 +448,50 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}logout",
+							"host": [
+								"{{base_url}}logout"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -492,8 +514,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -538,8 +565,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],

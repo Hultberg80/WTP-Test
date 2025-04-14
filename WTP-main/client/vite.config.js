@@ -9,12 +9,8 @@ export default defineConfig({
   
         "/api": "http://localhost:5000/"
   
-      },
-
-      build: {
-        outDir: '../server/wwwroot',
-        emptyOutDir: true,
       }
+      
     }
    
     //proxy: {
