@@ -65,11 +65,11 @@ jobs:
 
       - name: Build Playwright tests
         run: dotnet build
-        working-directory: ./END2ENDTester.Tests
+        working-directory: ./END2ENDTester
 
       - name: Install Playwright browsers
         run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
-        working-directory: ./END2ENDTester.Tests
+        working-directory: ./END2ENDTester
 
       - name: Start server
         run: nohup dotnet run &
@@ -93,7 +93,7 @@ jobs:
 
       - name: Run GUI Tests
         run: dotnet test
-        working-directory: ./END2ENDTester.Tests
+        working-directory: ./END2ENDTester
 
   deploy:
     name: Deploy to Server
