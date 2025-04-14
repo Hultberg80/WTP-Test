@@ -14,7 +14,8 @@ public class LoginHelper
 
     public async Task LoginFiller(string username, string password)
     {
-        await _page.Locator("#loggaIn").ClickAsync();
+        await _page.WaitForSelectorAsync("#loggaIn", new() { Timeout = 30000 });
+        await _page.ClickAsync("#loggaIn");
         await _page.FillAsync("[class='staff-field-input'][type='text']", username);
         await _page.FillAsync("[class='staff-field-input'][type='password']", password);
         await _page.ClickAsync("[class='staff-login-button'], [type='submit']");
