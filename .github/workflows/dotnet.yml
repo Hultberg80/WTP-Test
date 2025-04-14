@@ -78,7 +78,8 @@ jobs:
       working-directory: ./WTP-main/client
 
     - name: Wait for client to be ready
-      run: npx wait-on -t 60000 http://localhost:3002 sleep 15
+      run: npx wait-on -t 60000 http://localhost:3002
+        sleep 15
       working-directory: ./WTP-main/client
 
     - name: Run GUI Tests (with xvfb)
