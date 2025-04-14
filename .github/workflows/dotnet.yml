@@ -13,21 +13,18 @@ jobs:
   api_tests:
 
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testpass
-          POSTGRES_DB: testdb
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U testuser -d testdb"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+    
+services:
+backend:
+    build: .
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=45.10.162.204
+      - DB_PORT=5438
+      - DB_USER=postgres
+      - DB_PASSWORD=_FrozenPresidentSmacks!
+      - DB_NAME=postgres
           
     steps:
     - uses: actions/checkout@v4
