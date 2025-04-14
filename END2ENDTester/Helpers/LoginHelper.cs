@@ -14,7 +14,7 @@ public class LoginHelper
 
     public async Task LoginFiller(string username, string password)
     {
-        await _page.ClickAsync("[class='login-img']");
+        await _page.ClickAsync("a[href='/staff/login']");
         await _page.FillAsync("[class='staff-field-input'][type='text']", username);
         await _page.FillAsync("[class='staff-field-input'][type='password']", password);
         await _page.ClickAsync("[class='staff-login-button'], [type='submit']");

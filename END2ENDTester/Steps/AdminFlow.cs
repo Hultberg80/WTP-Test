@@ -42,7 +42,7 @@ public class AdminFlow
     [WhenAttribute("I click on the {string} symbol")]
     public async Task WhenIClickOnTheSymbol(string login)
     {
-        await _page.ClickAsync("[class='login-img']");
+        await _page.ClickAsync("a[href='/staff/login']");
     }
 
     [WhenAttribute("I enter username and password")]
