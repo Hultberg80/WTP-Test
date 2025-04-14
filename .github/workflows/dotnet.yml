@@ -87,7 +87,7 @@ jobs:
       working-directory: ./WTP-main/client
 
     - name: Start client
-      run: nohup npm run dev -- --host &
+      run: nohup npm run dev -- --host --port 3002 &
       working-directory: ./WTP-main/client
 
     - name: Wait for client to be ready
