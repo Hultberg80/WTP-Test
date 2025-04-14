@@ -52,48 +52,52 @@ jobs:
     needs: api_tests
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore
-        working-directory: ./WTP-main
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ./WTP-main
 
-      - name: Build Playwright tests
-        run: dotnet build
-        working-directory: ./END2ENDTester
+    - name: Build Playwright tests
+      run: dotnet build
+      working-directory: ./END2ENDTester
 
-      - name: Install Playwright browsers
-        run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
-        working-directory: ./END2ENDTester
+    - name: Install Playwright browsers
+      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+      working-directory: ./END2ENDTester
 
-      - name: Start server
-        run: nohup dotnet run &
-        working-directory: ./WTP-main/server
+    - name: Install xvfb
+      run: sudo apt-get update && sudo apt-get install -y xvfb
 
-      - name: Install client dependencies
-        run: npm install
-        working-directory: ./WTP-main/client
+    - name: Start server
+      run: nohup dotnet run &
+      working-directory: ./WTP-main/server
 
-      - name: Install wait-on
-        run: npm install wait-on
-        working-directory: ./WTP-main/client
+    - name: Install client dependencies
+      run: npm install
+      working-directory: ./WTP-main/client
 
-      - name: Start client
-        run: nohup npm run dev -- --host &
-        working-directory: ./WTP-main/client
+    - name: Install wait-on
+      run: npm install wait-on
+      working-directory: ./WTP-main/client
 
-      - name: Wait for client to be ready
-        run: npx wait-on http://localhost:3001
-        working-directory: ./WTP-main/client
+    - name: Start client
+      run: nohup npm run dev -- --host &
+      working-directory: ./WTP-main/client
 
-      - name: Run GUI Tests
-        run: dotnet test
-        working-directory: ./END2ENDTester
+    - name: Wait for client to be ready
+      run: npx wait-on http://localhost:3001
+      working-directory: ./WTP-main/client
+
+    - name: Run GUI Tests (with xvfb)
+      run: xvfb-run --auto-servernum -- dotnet test
+      working-directory: ./END2ENDTester
+
 
   deploy:
     name: Deploy to Server
