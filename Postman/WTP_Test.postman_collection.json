@@ -10,7 +10,7 @@
 			"name": "Flow",
 			"item": [
 				{
-					"name": "Login Copy",
+					"name": "Login",
 					"event": [
 						{
 							"listen": "test",
@@ -113,8 +113,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request\", function () {\r",
-									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -137,7 +137,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"sven.800@gmail.com\"\r\n    }",
+							"raw": "     {  \r\n       \"firstName\": \"Sven\",\r\n        \"password\": \"1234\",\r\n        \"company\": \"tele\",\r\n        \"role\": \"user\",\r\n        \"email\": \"sven.9000@gmail.com\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -160,7 +160,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"let userId = 148;\r",
+									"let userId = 80;\r",
 									"pm.environment.set(\"userId\", userId)"
 								],
 								"type": "text/javascript",
@@ -211,7 +211,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"let userId = 83;\r",
+									"let userId = 80;\r",
 									"pm.environment.set(\"userId\", userId)"
 								],
 								"type": "text/javascript",
