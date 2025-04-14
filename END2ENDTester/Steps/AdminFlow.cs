@@ -88,8 +88,26 @@ public class AdminFlow
     [GivenAttribute("I am at the WTP page and logged in as an admin")]
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAnAdmin()
     {
-        await _page.GotoAsync(BaseUrl);
-        await _loginHelper.LoginFiller("Admino", "02589");
+        try {
+            await _page.GotoAsync("http://localhost:3002/");
+        
+            // Take screenshot for debugging
+            await _page.ScreenshotAsync(new() { Path = "before-login.png" });
+        
+            // Wait for page to be fully loaded
+            await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        
+            await _loginHelper.LoginFiller("Admino", "02589");
+        
+            // Add verification that login was successful
+            await _page.WaitForSelectorAsync("text=Admin Dashboard", 
+                new() { Timeout = 30000, State = WaitForSelectorState.Visible });
+        }
+        catch (Exception ex) {
+            Console.WriteLine($"Admin login failed: {ex.Message}");
+            await _page.ScreenshotAsync(new() { Path = "admin-login-failed.png" });
+            throw;
+        }
     }
 
 
