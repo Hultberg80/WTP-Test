@@ -94,6 +94,9 @@ jobs:
       run: npx wait-on http://localhost:3002
       working-directory: ./WTP-main/client
 
+    - name: Wait a few more seconds before running tests
+      run: sleep 7
+
     - name: Run GUI Tests (with xvfb)
       run: xvfb-run --auto-servernum -- dotnet test
       working-directory: ./END2ENDTester
