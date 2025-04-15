@@ -98,16 +98,20 @@ public class UserFlow
     {
         try
         {
-            await _page.WaitForSelectorAsync("[name='company']", new() { Timeout = 10000 });
-            await _page.SelectOptionAsync("[name='company']", new SelectOptionValue { Label = "Fordonsservice" });
+            // Vänta på fältet
+            await _page.WaitForSelectorAsync("[name='companyType']", new() { Timeout = 10000 });
+
+            // Försök välja alternativet
+            await _page.SelectOptionAsync("[name='companyType']", new SelectOptionValue() { Label = fordonsservice });
         }
         catch (Exception ex)
         {
-            // Felsökningshjälp
+            // Alltid dumpa skärmdump och HTML
             await _page.ScreenshotAsync(new() { Path = "company_field_debug.png", FullPage = true });
             var html = await _page.ContentAsync();
             File.WriteAllText("company_field_debug.html", html);
-            Console.WriteLine("‼️ FEL: Kunde inte välja company-fältet: " + ex.Message);
+            Console.WriteLine("⚠️ DEBUG HTML & Screenshot sparad");
+            Console.WriteLine("🛑 FEL: " + ex.Message);
             throw;
         }
 
