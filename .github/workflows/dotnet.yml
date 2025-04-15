@@ -105,8 +105,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: debug-html
-          path: ./END2ENDTester/company_field_debug.html
+          name: debug-artifacts
+          path: company_field_debug.*
   
       - name: Upload serve log (if any issue)
         if: always()
