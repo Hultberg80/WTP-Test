@@ -60,7 +60,9 @@ jobs:
         working-directory: ./WTP-main/client
   
       - name: Build React client (production)
-        run: npm run build
+        run: |
+          npm run build
+          ls -la ../server/wwwroot
         working-directory: ./WTP-main/client
   
       - name: Install serve (static file server)
@@ -69,10 +71,16 @@ jobs:
       - name: Serve built client
         run: nohup serve -s ../server/wwwroot -l 3002 > serve.log 2>&1 &
         working-directory: ./WTP-main/client
-
   
-      - name: Wait for client to be available
+      - name: Wait for frontend
         run: npx wait-on http://localhost:3002
+  
+      - name: Start backend
+        run: nohup dotnet run &>/dev/null &
+        working-directory: ./WTP-main/server
+  
+      - name: Wait for backend
+        run: npx wait-on http://localhost:5000
   
       - name: Build Playwright tests
         run: dotnet build
@@ -82,23 +90,31 @@ jobs:
         run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
         working-directory: ./END2ENDTester
   
-      - name: Start backend
-        run: nohup dotnet run &>/dev/null &
-        working-directory: ./WTP-main/server
-  
-      - name: Wait for backend to be available
-        run: npx wait-on http://localhost:5000
-  
       - name: Run GUI Tests
         run: dotnet test
         working-directory: ./END2ENDTester
   
-      - name: Upload screenshots if tests fail
-        if: failure()
+      - name: Upload debug screenshot
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: screenshots
-          path: ./END2ENDTester/*.png
+          name: debug-screenshots
+          path: ./END2ENDTester/company_field_debug.png
+  
+      - name: Upload debug HTML
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-html
+          path: ./END2ENDTester/company_field_debug.html
+  
+      - name: Upload serve log (if any issue)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: serve-log
+          path: ./WTP-main/client/serve.log
+
 
   deploy:
     name: Deploy to Server
