@@ -37,6 +37,9 @@ public class Program // Deklarerar huvudklassen Program
         var app = builder.Build(); // Bygger WebApplication-instansen
         app.UseSession(); // Required for session state
         
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
+        
      
      //  Skickar in chatt till databasen
  app.MapPost("/api/chat/message", async (HttpContext context, ChatMessage message, NpgsqlDataSource db) =>
