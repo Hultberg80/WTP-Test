@@ -67,8 +67,9 @@ jobs:
         run: npm install -g serve
   
       - name: Serve built client
-        run: nohup serve -s dist -l 3002 &>/dev/null &
+        run: nohup serve -s ../server/wwwroot -l 3002 > serve.log 2>&1 &
         working-directory: ./WTP-main/client
+
   
       - name: Wait for client to be available
         run: npx wait-on http://localhost:3002
