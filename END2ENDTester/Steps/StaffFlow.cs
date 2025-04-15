@@ -49,7 +49,9 @@ public class StaffFlow
     [WhenAttribute("I click on the update password button")]
     public async Task WhenIClickOnTheUpdatePasswordButton()
     {
-        await _page.ClickAsync("a[href='/staff/update-user'][data-discover='true']");
+        var selector = "a[href='/staff/update-user'][data-discover='true']";
+        await _page.WaitForSelectorAsync(selector, new() { State = WaitForSelectorState.Visible, Timeout = 10000 });
+        await _page.ClickAsync(selector);
     }
 
     [WhenAttribute("I enter the new password {string} and confirm it")]
