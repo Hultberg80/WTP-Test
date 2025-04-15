@@ -64,14 +64,17 @@ public class StaffFlow
     [WhenAttribute("I click on the update button")]
     public async Task WhenIClickOnTheUpdateButton()
     {
-        await _page.ClickAsync("[class='bla'], [type='submit']");
+        await _page.WaitForSelectorAsync("a[href='/staff/update-user']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
     }
 
     [ThenAttribute("I should see a success message")]
     public async Task ThenIShouldSeeASuccessMessage()
     {
-        var element = await _page.QuerySelectorAsync("[text='Uppgifterna uppdaterades framgångsrikt']");
-        Assert.Null(element);
+        await _page.WaitForSelectorAsync("[text='Uppgifterna uppdaterades framgångsrikt']");
+        
     }
 
     
@@ -94,7 +97,7 @@ public class StaffFlow
     [ThenAttribute("I should see the ticket in my errands")]
     public async Task ThenIShouldSeeTheTicketInMyErrands()
     {
-        await _page.QuerySelectorAsync("a[href='/chat/2885815c-1181-4101-b473-54947e6cb33c']:has-text('Öppna chatt')");
+        await _page.WaitForSelectorAsync("a[href='/chat/2885815c-1181-4101-b473-54947e6cb33c']:has-text('Öppna chatt')");
     }
 
 
@@ -103,25 +106,37 @@ public class StaffFlow
     {
         await _page.GotoAsync($"{BaseUrl}staff/dashboard");
         await _loginHelper.LoginFiller("zunken123", "abc123");
+        await _page.WaitForSelectorAsync("div.ticket-task-token a[href='/chat/2885815c-1181-4101-b473-54947e6cb33c']:has-text('Öppna chatt')", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.ClickAsync("div.ticket-task-token a[href='/chat/2885815c-1181-4101-b473-54947e6cb33c']:has-text('Öppna chatt')");
     }
 
     [WhenAttribute("I write a response in the chat")]
     public async Task WhenIWriteAResponseInTheChat()
     {
+        await _page.WaitForSelectorAsync("[class='chat-modal__input-field']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[class='chat-modal__input-field']", "Vad kan jag hjälpa dig med?");
     }
 
     [WhenAttribute("I click on the send button")]
     public async Task WhenIClickOnTheSendButton()
     {
+        await _page.WaitForSelectorAsync("[class='chat-modal__send-button']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.ClickAsync("[class='chat-modal__send-button']");
     }
 
     [ThenAttribute("I should see my response in the chat")]
     public async Task ThenIShouldSeeMyResponseInTheChat()
     {
-        await _page.QuerySelectorAsync("[class='chat-modal__message-text']:has-text('Vad kan jag hjälpa dig med?')");
+        await _page.WaitForSelectorAsync("[class='chat-modal__message-text']:has-text('Vad kan jag hjälpa dig med?')");
     }
 }
 

@@ -44,7 +44,7 @@ public class UserFlow
     [GivenAttribute("I see the faq button")]
     public async Task GivenISeeTheFaqButton()
     {
-        await _page.QuerySelectorAsync("[id='faq-link']");
+        await _page.WaitForSelectorAsync("[id='faq-link']");
     }
 
     [WhenAttribute("I click on the faq button")]
@@ -56,7 +56,7 @@ public class UserFlow
     [ThenAttribute("I should see the FAQ page")]
     public async Task ThenIShouldSeeTheFaqPage()
     {
-        await _page.QuerySelectorAsync("[text='Har du läst vår FAQ?']");
+        await _page.WaitForSelectorAsync("[text='Har du läst vår FAQ?']");
         
     }
 
@@ -69,7 +69,7 @@ public class UserFlow
     [GivenAttribute("I see the yes button")]
     public async Task GivenISeeTheYesButton()
     {
-        await _page.QuerySelectorAsync("[class='faq-buttons'], [text='Ja']");
+        await _page.WaitForSelectorAsync("[class='faq-buttons'], [text='Ja']");
         
     }
 
@@ -82,7 +82,7 @@ public class UserFlow
     [ThenAttribute("I should see the form page")]
     public async Task ThenIShouldSeeTheFormPage()
     {
-        await _page.QuerySelectorAsync("[text='Kontakta kundtjänst']");
+        await _page.WaitForSelectorAsync("[text='Kontakta kundtjänst']");
        
     }
     
@@ -99,10 +99,10 @@ public class UserFlow
         try
         {
             // Vänta på fältet
-            await _page.WaitForSelectorAsync("[name='companyType']", new() { Timeout = 10000 });
+            await _page.WaitForSelectorAsync("[name='company']", new() { Timeout = 10000 });
 
             // Försök välja alternativet
-            await _page.SelectOptionAsync("[name='companyType']", new SelectOptionValue() { Label = fordonsservice });
+            await _page.SelectOptionAsync("[name='company']", new SelectOptionValue() { Label = fordonsservice });
         }
         catch (Exception ex)
         {
@@ -157,7 +157,7 @@ public class UserFlow
     [ThenAttribute("I should see the success message")]
     public async Task ThenIShouldSeeTheSuccessMessage()
     {
-        await _page.QuerySelectorAsync("[text='Formulär skickat! Kolla din e-post för chattlänken.']");
+        await _page.WaitForSelectorAsync("[text='Formulär skickat! Kolla din e-post för chattlänken.']");
     
     }
 }
