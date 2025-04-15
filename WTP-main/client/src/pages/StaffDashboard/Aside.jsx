@@ -1,5 +1,5 @@
 import React from 'react';
-import './aside.css';
+import './Aside.css'; // Importera CSS för stilar
 
 function Aside() {
   return (

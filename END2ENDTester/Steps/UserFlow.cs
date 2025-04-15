@@ -96,7 +96,7 @@ public class UserFlow
     [WhenAttribute("I select the field companyType and enter {string}")]
     public async Task WhenISelectTheFieldCompanyTypeAndEnter(string fordonsservice)
     {
-        await _page.SelectOptionAsync("[name='companyType']", new SelectOptionValue() { Label = "Fordonsservice" });
+        await _page.SelectOptionAsync("[name='company']", new SelectOptionValue() { Label = "Fordonsservice" });
 
     }
 
