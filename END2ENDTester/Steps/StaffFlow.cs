@@ -43,7 +43,7 @@ public class StaffFlow
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAStaff()
     {
         await _page.GotoAsync($"{BaseUrl}");
-        await _loginHelper.LoginFiller("zunken123", "abc123");
+        await _loginHelper.LoginFiller("hultberg800@gmail.com", "abc123");
     }
 
     [WhenAttribute("I click on the update password button")]

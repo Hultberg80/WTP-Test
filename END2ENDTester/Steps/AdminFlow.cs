@@ -89,7 +89,7 @@ public class AdminFlow
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAnAdmin()
     {
         try {
-            await _page.GotoAsync("http://localhost:3002/");
+            await _page.GotoAsync($"{BaseUrl}");
         
             // Take screenshot for debugging
             await _page.ScreenshotAsync(new() { Path = "before-login.png" });
@@ -100,7 +100,7 @@ public class AdminFlow
             await _loginHelper.LoginFiller("Admino", "02589");
         
             // Add verification that login was successful
-            await _page.WaitForSelectorAsync("text=Admin Dashboard", 
+            await _page.WaitForSelectorAsync("text=Dashboard", 
                 new() { Timeout = 30000, State = WaitForSelectorState.Visible });
         }
         catch (Exception ex) {
@@ -174,7 +174,7 @@ public class AdminFlow
     [GivenAttribute("I am at the Admin dashboard and logged in as an admin")]
     public async Task GivenIAmAtTheAdminDashboardAndLoggedInAsAnAdmin()
     {
-        await _page.GotoAsync(BaseUrl + "admin/dashboard");
+        await _page.GotoAsync($"{BaseUrl}admin/dashboard");
         await _loginHelper.LoginFiller("Admino", "02589");
     }
 

@@ -121,3 +121,4 @@ C:\Users\hultb\RiderProjects\Testing\XUnitTest\obj\Debug\net8.0\refint\XUnitTest
 C:\Users\hultb\RiderProjects\Testing\XUnitTest\obj\Debug\net8.0\XUnitTest.pdb
 C:\Users\hultb\RiderProjects\Testing\XUnitTest\obj\Debug\net8.0\XUnitTest.genruntimeconfig.cache
 C:\Users\hultb\RiderProjects\Testing\XUnitTest\obj\Debug\net8.0\ref\XUnitTest.dll
+C:\Users\hultb\RiderProjects\Testing\XUnitTest\bin\Debug\net8.0\server.staticwebassets.runtime.json
