@@ -96,6 +96,14 @@ public class UserFlow
     [WhenAttribute("I select the field companyType and enter {string}")]
     public async Task WhenISelectTheFieldCompanyTypeAndEnter(string fordonsservice)
     {
+        await _page.ScreenshotAsync(new()
+        {
+            Path = "company_field_debug.png",
+            FullPage = true
+        });
+        var html = await _page.ContentAsync();
+        await System.IO.File.WriteAllTextAsync("company_field_debug.html", html);
+
         await _page.SelectOptionAsync("[name='company']", new SelectOptionValue() { Label = "Fordonsservice" });
 
     }
