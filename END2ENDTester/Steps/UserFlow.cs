@@ -50,6 +50,10 @@ public class UserFlow
     [WhenAttribute("I click on the faq button")]
     public async Task WhenIClickOnTheFaqButton()
     {
+        await _page.WaitForSelectorAsync("[id='faq-link']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.ClickAsync("[id='faq-link']");
     }
 
@@ -76,13 +80,17 @@ public class UserFlow
     [WhenAttribute("I click on the yes button")]
     public async Task WhenIClickOnTheYesButton()
     {
+        await _page.WaitForSelectorAsync("[class='faq-buttons']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.ClickAsync("[class='faq-buttons'], [text='Ja']");
     }
 
     [ThenAttribute("I should see the form page")]
     public async Task ThenIShouldSeeTheFormPage()
     {
-        await _page.WaitForSelectorAsync("[text='Kontakta kundtjänst']");
+        await _page.WaitForSelectorAsync("[class='dynamisk-form-title']", new() { Timeout = 10000 });
        
     }
     
@@ -121,18 +129,30 @@ public class UserFlow
     [WhenAttribute("I select the field firstName and enter {string}")]
     public async Task WhenISelectTheFieldFirstNameAndEnter(string john)
     {
+        await _page.WaitForSelectorAsync("[name='firstName']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[name='firstName']", "John Doe");
     }
 
     [WhenAttribute("I select the field email and enter my email address")]
     public async Task WhenISelectTheFieldEmailAndEnterMyEmailAddress()
     {
+        await _page.WaitForSelectorAsync("[name='email']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[name='email']", "hultberg.80@gmail.com");
     }
 
     [WhenAttribute("I select the registration number field and enter {string}")]
     public async Task WhenISelectTheRegistrationNumberFieldAndEnter(string p0)
     {
+        await _page.WaitForSelectorAsync("[name='registrationNumber']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[name='registrationNumber']", "ABC123");
     }
 
@@ -145,12 +165,20 @@ public class UserFlow
     [WhenAttribute("I enter the message {string} in the message field")]
     public async Task WhenIEnterTheMessageInTheMessageField(string p0)
     {
+        await _page.WaitForSelectorAsync("[name='message']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[name='message']", "Hej, jag har en fråga om min beställning.");
     }
 
     [WhenAttribute("I click on the submit button")]
     public async Task WhenIClickOnTheSubmitButton()
     {
+        await _page.WaitForSelectorAsync("[class='dynamisk-form-button']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.ClickAsync("[class='dynamisk-form-button'], [type='submit']");
     }
 

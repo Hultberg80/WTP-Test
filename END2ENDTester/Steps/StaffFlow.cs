@@ -57,7 +57,15 @@ public class StaffFlow
     [WhenAttribute("I enter the new password {string} and confirm it")]
     public async Task WhenIEnterTheNewPasswordAndConfirmIt(string password)
     {
+        await _page.WaitForSelectorAsync("[class='login-bar'][type='password']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[class='login-bar'][type='password']", "abc111");
+        await _page.WaitForSelectorAsync("[class='login-bar'][type='password'][name='confirmPassword']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[class='login-bar'][type='password'][name='confirmPassword']", "abc111");
     }
 

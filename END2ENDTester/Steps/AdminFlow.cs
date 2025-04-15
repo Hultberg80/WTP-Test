@@ -67,7 +67,15 @@ public class AdminFlow
     [WhenAttribute("I enter username and password")]
     public async Task WhenIEnterUsernameAndPassword()
     {
+        await _page.WaitForSelectorAsync("[class='staff-field-input'][type='text']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[class='staff-field-input'][type='text']", "ville");
+        await _page.WaitForSelectorAsync("[class='staff-field-input'][type='password']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.FillAsync("[class='staff-field-input'][type='password']", "12345");
 
     }
@@ -75,6 +83,10 @@ public class AdminFlow
     [WhenAttribute("I click on the login button")]
     public async Task WhenIClickOnTheLoginButton()
     {
+        await _page.WaitForSelectorAsync("[class='staff-login-button']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.ClickAsync("[class='staff-login-button'], [type='submit']");
     }
 
@@ -114,6 +126,10 @@ public class AdminFlow
     [WhenAttribute("I click on the create user button")]
     public async Task WhenIClickOnTheCreateUserButton()
     {
+        await _page.WaitForSelectorAsync("a[href='/admin/create-user'][data-discover='true']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.ClickAsync("a[href='/admin/create-user'][data-discover='true']");
     }
 
@@ -144,6 +160,10 @@ public class AdminFlow
     [WhenAttribute("click on the skapa användare button")]
     public async Task WhenClickOnTheSkapaAnvandareButton()
     {
+        await _page.WaitForSelectorAsync("[class='dynamisk-form-button']", new() {
+            Timeout = 10000,
+            State = WaitForSelectorState.Visible
+        });
         await _page.ClickAsync("[class='dynamisk-form-button'], [type='submit']");
     }
 
