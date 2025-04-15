@@ -35,69 +35,53 @@ jobs:
         run: newman run ./Postman/WTP_Test.postman_collection.json
 
   gui_tests:
-    runs-on: ubuntu-latest
-    needs: api_tests
+      runs-on: ubuntu-latest
+      needs: api_tests
 
-    steps:
-    - uses: actions/checkout@v4
+      steps:
+      - uses: actions/checkout@v4
 
-    - name: Setup dotnet
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-    - name: Restore dependencies
-      run: dotnet restore
-      working-directory: ./WTP-main
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # eller matcha din lokala version
 
-    - name: Build Playwright tests
-      run: dotnet build
-      working-directory: ./END2ENDTester
+      - name: Restore backend dependencies
+        run: dotnet restore
+        working-directory: ./WTP-main
 
-    - name: Install Playwright browsers
-      run: pwsh bin/Debug/net8.0/playwright.ps1 
-          install --with-deps
-      working-directory: ./END2ENDTester
+      - name: Install client dependencies
+        run: npm install
+        working-directory: ./WTP-main/client
 
-    #- name: Install xvfb
-     # run: sudo apt-get update && sudo apt-get install -y xvfb
+      - name: Build Playwright tests
+        run: dotnet build
+        working-directory: ./END2ENDTester
 
-    - name: Start server
-      run: nohup dotnet run &
-      working-directory: ./WTP-main/server
+      - name: Install Playwright browsers
+        run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+        working-directory: ./END2ENDTester
 
-    #- name: Install client dependencies
-     # run: npm install
-      #working-directory: ./WTP-main/client
+      - name: Start backend
+        run: nohup dotnet run &>/dev/null &
+        working-directory: ./WTP-main/server
 
-    #- name: Install wait-on
-     # run: npm install wait-on
-      #working-directory: ./WTP-main/client
+      - name: Start frontend (React)
+        run: nohup npm run dev -- --host --port 3002 &>/dev/null &
+        working-directory: ./WTP-main/client
 
-    #- name: Start client
-     # run: nohup npm run dev -- --host --port 3002 &
-      #working-directory: ./WTP-main/client
+      - name: Wait for frontend
+        run: npx wait-on http://localhost:3002
 
-    #- name: Verify client is accessible
-     # run: |
-        # Wait for service to be up
-      #  npx wait-on -t 90000 http://localhost:3002
-       #   curl -v http://localhost:3002/
-        #  sleep 20
-      #working-directory: ./WTP-main/client
+      - name: Run GUI Tests
+        run: dotnet test
+        working-directory: ./END2ENDTester
 
-    - name: Run GUI Tests (with xvfb)
-      run: dotnet test
-        #export CI=true
-        #xvfb-run --auto-servernum -- dotnet test
-      working-directory: ./END2ENDTester
-
-   # - name: Upload failure screenshots
-    #  if: always()
-     # uses: actions/upload-artifact@v4
-      #with:
-       # name: test-artifacts
-        #path: ./END2ENDTester/*.png
 
 
   deploy:
