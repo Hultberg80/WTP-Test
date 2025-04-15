@@ -94,12 +94,12 @@ jobs:
         run: dotnet test
         working-directory: ./END2ENDTester
   
-      - name: Upload debug screenshot
+      - name: Upload debug artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: debug-screenshots
-          path: ./END2ENDTester/company_field_debug.png
+          name: debug-artifacts
+          path: ./END2ENDTester/company_field_debug.*
   
       - name: Upload debug HTML
         if: always()
