@@ -107,12 +107,13 @@ public class UserFlow
         catch (Exception ex)
         {
             // Alltid dumpa skärmdump och HTML
-            await _page.ScreenshotAsync(new() { Path = "company_field_debug.png", FullPage = true });
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "company_field_debug.png");
+            await _page.ScreenshotAsync(new() { Path = path, FullPage = true });
+
+            var htmlPath = Path.Combine(Directory.GetCurrentDirectory(), "company_field_debug.html");
             var html = await _page.ContentAsync();
-            File.WriteAllText("company_field_debug.html", html);
-            Console.WriteLine("⚠️ DEBUG HTML & Screenshot sparad");
-            Console.WriteLine("🛑 FEL: " + ex.Message);
-            throw;
+            File.WriteAllText(htmlPath, html);
+
         }
 
     }

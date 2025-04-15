@@ -190,9 +190,11 @@ public class AdminFlow
         };
 
         var rowSelector = $"tr:has(td:text('{p0}'))";
-        var buttonSelector = $"{rowSelector} >> [class='delete-button']";
+        await _page.WaitForSelectorAsync(rowSelector, new() { Timeout = 10000 });
 
-        await _page.ClickAsync(buttonSelector);
+        var button = _page.Locator(rowSelector).Locator("button.delete-button");
+        await button.ClickAsync();
+        
 
         // Lägg ev. till en kort paus för att se att det händer
         await _page.WaitForTimeoutAsync(1000);
