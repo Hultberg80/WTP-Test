@@ -189,11 +189,11 @@ public class AdminFlow
             }
         };
 
-        var rowSelector = $"tr:has(td:text('{p0}'))";
-        await _page.WaitForSelectorAsync(rowSelector, new() { Timeout = 10000 });
+        var row = _page.Locator("tr").Filter(new() { HasTextString = p0 });
+        await row.WaitForAsync(new() { Timeout = 10000 }); // längre vid behov
 
-        var button = _page.Locator(rowSelector).Locator("button.delete-button");
-        await button.ClickAsync();
+        var deleteButton = row.Locator("button.delete-button");
+        await deleteButton.ClickAsync();
         
 
         // Lägg ev. till en kort paus för att se att det händer
