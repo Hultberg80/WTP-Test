@@ -35,10 +35,10 @@ jobs:
         run: newman run ./Postman/WTP_Test.postman_collection.json
 
   gui_tests:
-      runs-on: ubuntu-latest
-      needs: api_tests
+    runs-on: ubuntu-latest
+    needs: api_tests
 
-      steps:
+    steps:
       - uses: actions/checkout@v4
 
       - name: Setup dotnet
@@ -49,40 +49,55 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # eller matcha din lokala version
-
+          node-version: 20
+  
       - name: Restore backend dependencies
         run: dotnet restore
         working-directory: ./WTP-main
-
+  
       - name: Install client dependencies
         run: npm install
         working-directory: ./WTP-main/client
-
+  
+      - name: Build React client (production)
+        run: npm run build
+        working-directory: ./WTP-main/client
+  
+      - name: Install serve (static file server)
+        run: npm install -g serve
+  
+      - name: Serve built client
+        run: nohup serve -s dist -l 3002 &>/dev/null &
+        working-directory: ./WTP-main/client
+  
+      - name: Wait for client to be available
+        run: npx wait-on http://localhost:3002
+  
       - name: Build Playwright tests
         run: dotnet build
         working-directory: ./END2ENDTester
-
+  
       - name: Install Playwright browsers
         run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
         working-directory: ./END2ENDTester
-
+  
       - name: Start backend
         run: nohup dotnet run &>/dev/null &
         working-directory: ./WTP-main/server
-
-      - name: Start frontend (React)
-        run: nohup npm run dev -- --host --port 3002 &>/dev/null &
-        working-directory: ./WTP-main/client
-
-      - name: Wait for frontend
-        run: npx wait-on http://localhost:3002
-
+  
+      - name: Wait for backend to be available
+        run: npx wait-on http://localhost:5000
+  
       - name: Run GUI Tests
         run: dotnet test
         working-directory: ./END2ENDTester
-
-
+  
+      - name: Upload screenshots if tests fail
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: ./END2ENDTester/*.png
 
   deploy:
     name: Deploy to Server
