@@ -96,15 +96,20 @@ public class UserFlow
     [WhenAttribute("I select the field companyType and enter {string}")]
     public async Task WhenISelectTheFieldCompanyTypeAndEnter(string fordonsservice)
     {
-        await _page.ScreenshotAsync(new()
+        try
         {
-            Path = "company_field_debug.png",
-            FullPage = true
-        });
-        var html = await _page.ContentAsync();
-        await System.IO.File.WriteAllTextAsync("company_field_debug.html", html);
-
-        await _page.SelectOptionAsync("[name='company']", new SelectOptionValue() { Label = "Fordonsservice" });
+            await _page.WaitForSelectorAsync("[name='company']", new() { Timeout = 10000 });
+            await _page.SelectOptionAsync("[name='company']", new SelectOptionValue { Label = "Fordonsservice" });
+        }
+        catch (Exception ex)
+        {
+            // Felsökningshjälp
+            await _page.ScreenshotAsync(new() { Path = "company_field_debug.png", FullPage = true });
+            var html = await _page.ContentAsync();
+            File.WriteAllText("company_field_debug.html", html);
+            Console.WriteLine("‼️ FEL: Kunde inte välja company-fältet: " + ex.Message);
+            throw;
+        }
 
     }
 
