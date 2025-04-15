@@ -41,7 +41,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup .NET
+    - name: Setup dotnet
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
@@ -55,48 +55,49 @@ jobs:
       working-directory: ./END2ENDTester
 
     - name: Install Playwright browsers
-      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+      run: pwsh bin/Debug/net8.0/playwright.ps1 
+          install --with-deps
       working-directory: ./END2ENDTester
 
-    - name: Install xvfb
-      run: sudo apt-get update && sudo apt-get install -y xvfb
+    #- name: Install xvfb
+     # run: sudo apt-get update && sudo apt-get install -y xvfb
 
     - name: Start server
       run: nohup dotnet run &
       working-directory: ./WTP-main/server
 
-    - name: Install client dependencies
-      run: npm install
-      working-directory: ./WTP-main/client
+    #- name: Install client dependencies
+     # run: npm install
+      #working-directory: ./WTP-main/client
 
-    - name: Install wait-on
-      run: npm install wait-on
-      working-directory: ./WTP-main/client
+    #- name: Install wait-on
+     # run: npm install wait-on
+      #working-directory: ./WTP-main/client
 
-    - name: Start client
-      run: nohup npm run dev -- --host --port 3002 &
-      working-directory: ./WTP-main/client
+    #- name: Start client
+     # run: nohup npm run dev -- --host --port 3002 &
+      #working-directory: ./WTP-main/client
 
-    - name: Verify client is accessible
-      run: |
+    #- name: Verify client is accessible
+     # run: |
         # Wait for service to be up
-        npx wait-on -t 90000 http://localhost:3002
-          curl -v http://localhost:3002/
-          sleep 20
-      working-directory: ./WTP-main/client
+      #  npx wait-on -t 90000 http://localhost:3002
+       #   curl -v http://localhost:3002/
+        #  sleep 20
+      #working-directory: ./WTP-main/client
 
     - name: Run GUI Tests (with xvfb)
-      run: |
-        export CI=true
-        xvfb-run --auto-servernum -- dotnet test
+      run: dotnet test
+        #export CI=true
+        #xvfb-run --auto-servernum -- dotnet test
       working-directory: ./END2ENDTester
 
-    - name: Upload failure screenshots
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-artifacts
-        path: ./END2ENDTester/*.png
+   # - name: Upload failure screenshots
+    #  if: always()
+     # uses: actions/upload-artifact@v4
+      #with:
+       # name: test-artifacts
+        #path: ./END2ENDTester/*.png
 
 
   deploy:
