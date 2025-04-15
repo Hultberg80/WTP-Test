@@ -89,6 +89,9 @@ jobs:
       - name: Install Playwright browsers
         run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
         working-directory: ./END2ENDTester
+
+      - name: Install xvfb
+        run: sudo apt-get update && sudo apt-get install -y xvfb
   
       - name: Run GUI Tests
         run: dotnet test
