@@ -21,7 +21,6 @@ public class StaffFlow
     public async Task Setup()
     {
         _playwright = await Playwright.CreateAsync();
-        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = false, SlowMo = 2000 });
         _context = await _browser.NewContextAsync();
         _page = await _context.NewPageAsync();
         _loginHelper = new LoginHelper(_page);
