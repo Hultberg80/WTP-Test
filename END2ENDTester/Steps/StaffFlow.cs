@@ -21,14 +21,16 @@ public class StaffFlow
     public async Task Setup()
     {
         _playwright = await Playwright.CreateAsync();
-        _context = await _browser.NewContextAsync();
-        _page = await _context.NewPageAsync();
-        _loginHelper = new LoginHelper(_page);
-         var isCi = Environment.GetEnvironmentVariable("CI") != null;
+        var isCi = Environment.GetEnvironmentVariable("CI") != null;
         _browser = await _playwright.Chromium.LaunchAsync(new() { 
             Headless = isCi, // Use headless mode in CI
             SlowMo = isCi ? 0 : 1000 // SlowMo might not be needed in CI
         });
+        _context = await _browser.NewContextAsync();
+        _page = await _context.NewPageAsync();
+        _loginHelper = new LoginHelper(_page);
+        
+       
     }
 
     [AfterScenario]
