@@ -15,7 +15,7 @@ public class AdminFlow
     private IBrowserContext _context;
     private IPage _page;
     private LoginHelper _loginHelper;
-    private string BaseUrl => Environment.GetEnvironmentVariable("TEST_APP_URL") ?? "http://localhost:3002/";
+    private string BaseUrl => Environment.GetEnvironmentVariable("TEST_APP_URL") ?? "http://localhost:5000/";
     
 
     [BeforeScenario]
@@ -28,13 +28,7 @@ public class AdminFlow
             Headless = isCi, // Use headless mode in CI
             SlowMo = isCi ? 0 : 1000 // SlowMo might not be needed in CI
         });
-        _context = await _browser.NewContextAsync(new BrowserNewContextOptions
-        {
-            ViewportSize = new ViewportSize { Width = 1920, Height = 1080 },
-            // Force desktop mode
-            IsMobile = false,
-            HasTouch = false
-        });
+        _context = await _browser.NewContextAsync();
         _page = await _context.NewPageAsync();
         _loginHelper = new LoginHelper(_page);
     }
@@ -49,13 +43,7 @@ public class AdminFlow
     [GivenAttribute("I am on the WTP page")]
     public async Task GivenIAmOnTheWtpPage()
     {
-        await _page.GotoAsync("http://localhost:3002/");
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-        await _page.ScreenshotAsync(new() { Path = "page-loaded.png" });
-    
-        // Log page content for debugging
-        var content = await _page.ContentAsync();
-        Console.WriteLine($"Page HTML: {content.Substring(0, Math.Min(500, content.Length))}...");
+        await _page.GotoAsync($"{BaseUrl}");
     }
 
     [WhenAttribute("I click on the {string} symbol")]
@@ -67,15 +55,7 @@ public class AdminFlow
     [WhenAttribute("I enter username and password")]
     public async Task WhenIEnterUsernameAndPassword()
     {
-        await _page.WaitForSelectorAsync("[class='staff-field-input'][type='text']", new() {
-            Timeout = 10000,
-            State = WaitForSelectorState.Visible
-        });
         await _page.FillAsync("[class='staff-field-input'][type='text']", "ville");
-        await _page.WaitForSelectorAsync("[class='staff-field-input'][type='password']", new() {
-            Timeout = 10000,
-            State = WaitForSelectorState.Visible
-        });
         await _page.FillAsync("[class='staff-field-input'][type='password']", "12345");
 
     }
@@ -83,10 +63,6 @@ public class AdminFlow
     [WhenAttribute("I click on the login button")]
     public async Task WhenIClickOnTheLoginButton()
     {
-        await _page.WaitForSelectorAsync("[class='staff-login-button']", new() {
-            Timeout = 10000,
-            State = WaitForSelectorState.Visible
-        });
         await _page.ClickAsync("[class='staff-login-button'], [type='submit']");
     }
 
@@ -100,36 +76,14 @@ public class AdminFlow
     [GivenAttribute("I am at the WTP page and logged in as an admin")]
     public async Task GivenIAmAtTheWtpPageAndLoggedInAsAnAdmin()
     {
-        try {
-            await _page.GotoAsync($"{BaseUrl}");
-        
-            // Take screenshot for debugging
-            await _page.ScreenshotAsync(new() { Path = "before-login.png" });
-        
-            // Wait for page to be fully loaded
-            await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-        
-            await _loginHelper.LoginFiller("Admino", "02589");
-        
-            // Add verification that login was successful
-            await _page.WaitForSelectorAsync("text=Dashboard", 
-                new() { Timeout = 30000, State = WaitForSelectorState.Visible });
-        }
-        catch (Exception ex) {
-            Console.WriteLine($"Admin login failed: {ex.Message}");
-            await _page.ScreenshotAsync(new() { Path = "admin-login-failed.png" });
-            throw;
-        }
+        await _page.GotoAsync(BaseUrl);
+        await _loginHelper.LoginFiller("Admino", "02589");
     }
 
 
     [WhenAttribute("I click on the create user button")]
     public async Task WhenIClickOnTheCreateUserButton()
     {
-        await _page.WaitForSelectorAsync("a[href='/admin/create-user'][data-discover='true']", new() {
-            Timeout = 10000,
-            State = WaitForSelectorState.Visible
-        });
         await _page.ClickAsync("a[href='/admin/create-user'][data-discover='true']");
     }
 
@@ -140,7 +94,7 @@ public class AdminFlow
         await _page.WaitForSelectorAsync("[name='email']", new() { State = WaitForSelectorState.Visible });
     
         // Use more explicit waits before each action
-        await _page.FillAsync("[name='email'][type='text']", "hultberg100@gmail.com");
+        await _page.FillAsync("[name='email'][type='text']", "hultberg300@gmail.com");
         await _page.WaitForTimeoutAsync(500); // Short pause between actions
     
         await _page.FillAsync("[name='firstName'][type='text']", "zunken123");
@@ -154,16 +108,12 @@ public class AdminFlow
         await _page.SelectOptionAsync("[name='company'][class='login-bar']", new SelectOptionValue() { Value = "fordon" });
         await _page.WaitForTimeoutAsync(500);
     
-        await _page.SelectOptionAsync("[name='role'][class='login-bar']", new SelectOptionValue() { Value = "staff" });
+        await _page.SelectOptionAsync("[name='role'][class='login-bar']", new SelectOptionValue() { Value = "user" });
     }
 
     [WhenAttribute("click on the skapa användare button")]
     public async Task WhenClickOnTheSkapaAnvandareButton()
     {
-        await _page.WaitForSelectorAsync("[class='dynamisk-form-button']", new() {
-            Timeout = 10000,
-            State = WaitForSelectorState.Visible
-        });
         await _page.ClickAsync("[class='dynamisk-form-button'], [type='submit']");
     }
 
@@ -194,7 +144,7 @@ public class AdminFlow
     [GivenAttribute("I am at the Admin dashboard and logged in as an admin")]
     public async Task GivenIAmAtTheAdminDashboardAndLoggedInAsAnAdmin()
     {
-        await _page.GotoAsync($"{BaseUrl}admin/dashboard");
+        await _page.GotoAsync(BaseUrl + "admin/dashboard");
         await _loginHelper.LoginFiller("Admino", "02589");
     }
 
@@ -209,12 +159,10 @@ public class AdminFlow
             }
         };
 
-        var row = _page.Locator("tr").Filter(new() { HasTextString = p0 });
-        await row.WaitForAsync(new() { Timeout = 10000 }); // längre vid behov
+        var rowSelector = $"tr:has(td:text('{p0}'))";
+        var buttonSelector = $"{rowSelector} >> [class='delete-button']";
 
-        var deleteButton = row.Locator("button.delete-button");
-        await deleteButton.ClickAsync();
-        
+        await _page.ClickAsync(buttonSelector);
 
         // Lägg ev. till en kort paus för att se att det händer
         await _page.WaitForTimeoutAsync(1000);

@@ -39,6 +39,7 @@ public class Program // Deklarerar huvudklassen Program
         
         app.UseDefaultFiles();
         app.UseStaticFiles();
+        app.MapFallbackToFile("index.html");
         
      
      //  Skickar in chatt till databasen
