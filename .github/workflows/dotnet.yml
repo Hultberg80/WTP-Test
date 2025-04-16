@@ -133,5 +133,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /srv/www/malmo/martin/https://github.com/Hultberg80/WTP-Test.git
+            cd /srv/www/malmo/martin/WTP-Test
             git pull
