@@ -3,5 +3,5 @@
 
     Scenario: Delete a user
         Given I am at the Admin dashboard and logged in as an admin
-        When I click on the delete user button where mail equals "hultberg123@gmail.com"
+        When I click on the delete user button where mail equals "hultberg200@gmail.com"
         Then the user should be deleted from the system

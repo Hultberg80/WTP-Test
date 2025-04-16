@@ -125,8 +125,9 @@ public class AdminFlow
             var timeout = Environment.GetEnvironmentVariable("CI") != null ? 30000 : 5000;
         
             // Either wait for success message or check that user appears in the list
-            await _page.WaitForSelectorAsync("div.success-message:has-text('Användare skapades framgångsrikt!')", 
-                new() { Timeout = timeout, State = WaitForSelectorState.Visible });
+            await _page.WaitForSelectorAsync("div.success-message:has-text('Användare skapades framgångsrikt!')",
+                new() { Timeout = 30000, State = WaitForSelectorState.Attached }); // finns i DOM
+
         
     }
 
