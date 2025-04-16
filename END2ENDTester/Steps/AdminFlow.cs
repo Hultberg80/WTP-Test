@@ -120,24 +120,14 @@ public class AdminFlow
     [ThenAttribute("a new user should be created")]
     public async Task ThenANewUserShouldBeCreated()
     {
-        try {
+       
             // Wait longer in CI environment
             var timeout = Environment.GetEnvironmentVariable("CI") != null ? 30000 : 5000;
         
             // Either wait for success message or check that user appears in the list
-            await _page.WaitForSelectorAsync("text=Användare skapad", 
+            await _page.WaitForSelectorAsync("text=Användare skapades framgångsrikt!", 
                 new() { Timeout = timeout, State = WaitForSelectorState.Visible });
         
-            // If the above doesn't work, try different selectors:
-            // await _page.WaitForNavigationAsync();
-            // var element = await _page.QuerySelectorAsync("text=Användare skapad");
-            // Assert.NotNull(element);
-        }
-        catch (Exception ex) {
-            // Take a screenshot on failure to help debugging
-            await _page.ScreenshotAsync(new() { Path = "user-creation-failed.png" });
-            throw;
-        }
     }
 
 
