@@ -46,7 +46,13 @@ API-tester finns i testing/postman.
 Kör via Newman:
 
 ````
-cd END2ENDTester
+newman run testing/postman/WTP_Test.postman_collection.json
+````
+
+GUI-tester (Playwright .NET)
+
+````
+cd Testing/END2ENDTester
  dotnet test
 ````
 END2ENDTester använder Playwright med xUnit och är 
