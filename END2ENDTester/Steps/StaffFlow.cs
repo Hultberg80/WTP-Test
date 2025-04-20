@@ -78,7 +78,7 @@ public class StaffFlow
     [GivenAttribute("I am at the staff dashboard")]
     public async Task GivenIAmAtTheStaffDashboard()
     {
-        await _page.GotoAsync("http://localhost:3002/staff/dashboard");
+        await _page.GotoAsync($"{BaseUrl}staff/dashboard");
     }
 
 
