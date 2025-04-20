@@ -66,7 +66,7 @@ END2ENDTester inkluderar:
 🤖 CI/CD via GitHub Actions
 
 Allt testas automatiskt vid varje push till main genom 
-.github/workflows/CI-CD-Test.yaml
+.github/workflows/dotnet.yml
 
 Flödet inkluderar:
 
